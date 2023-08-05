@@ -1,0 +1,193 @@
+#meesho-navbar {
+  height: 72px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+#meesho-navbar > #navbar {
+  height: 100%;
+  width: 98%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+#meesho-navbar > #navbar > #left {
+  /* background-color: white !important; */
+  height: 100%;
+  width: 45%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+#meesho-navbar > #navbar > #left > #logo > a {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 5px; */
+  /* border: 1px solid black; */
+}
+
+#meesho-navbar > #navbar > #left > #logo > a > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  filter: contrast(150%);
+}
+
+#meesho-navbar > #navbar > #left > #search {
+  height: 64%;
+  width: 68%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(157, 154, 154);
+}
+
+#meesho-navbar > #navbar > #left > #search > .fa-magnifying-glass {
+  color: grey;
+  font-size: 22px;
+}
+
+/* #meesho-navbar > #navbar > #left > #search > i {
+  } */
+
+#meesho-navbar > #navbar > #left > #search > input {
+  height: 98%;
+  width: 92%;
+  border: none;
+  outline: none;
+}
+
+#meesho-navbar > #navbar > #left > #search > input::placeholder {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgb(127, 127, 127);
+}
+
+#meesho-navbar > #navbar > #right {
+  height: 100%;
+  width: 45% !important;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: none;
+  /* border: 1px solid black; */
+}
+
+#meesho-navbar > #navbar > #right,
+#download,
+#supplier {
+  height: 75%;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border-right: 2px solid rgb(191, 191, 191) !important; */
+}
+
+#download,
+#supplier {
+  border-right: 2px solid rgb(191, 191, 191);
+}
+
+#meesho-navbar > #navbar > #right,
+#download > span {
+  padding: 0 8px;
+  font-size: 15px;
+}
+#meesho-navbar > #navbar > #right,
+#supplier > span {
+  font-size: 15px;
+}
+
+#meesho-navbar > #navbar > #right > #others {
+  height: 100%;
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+#meesho-navbar > #navbar > #right > #others > .other {
+  height: 80%;
+  /* width: 40%; */
+  /* border: 1px solid black; */
+}
+
+#meesho-navbar > #navbar > #right > #others > .other > a {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  text-decoration: none;
+  color: black;
+  /* border: 1px solid black; */
+}
+
+#meesho-navbar > #navbar > #right > #others > .other > a > span {
+  font-size: 15px;
+}
+
+#meesho-sub-navbar {
+  z-index: 1;
+  top: 7px;
+  position: fixed;
+  background-color: white;
+  margin-top: 65px;
+  height: 50px;
+  width: 100%;
+  /* border-top: 1px solid rgb(195, 195, 195); */
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+#meesho-sub-navbar > #nav-items {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-around; */
+  /* border: 1px solid black; */
+}
+
+#meesho-sub-navbar > #nav-items > span {
+  height: 100%;
+  width: auto;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid green; */
+}
+
+#meesho-sub-navbar > #nav-items > span > p {
+  height: 100%;
+  width: auto;
+  font-size: 15px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#meesho-sub-navbar > #nav-items > span > p:hover {
+  margin-bottom: -3px;
+  color: #a9028d;
+  font-weight: 400;
+  border-bottom: 3px solid #9f2089;
+}
