@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import sec1 from "./../../images/sec-1.JPG";
 import sec1sub from "./../../images/sec-1-sub.JPG";
@@ -7,8 +7,20 @@ import sec3 from "./../../images/sec-3.JPG";
 import sec4 from "./../../images/sec-4.JPG";
 import sec5 from "./../../images/sec-5.JPG";
 import sec6 from "./../../images/sec-6.JPG";
+import { AuthContexts } from "../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const { state } = useContext(AuthContexts);
+  const [allProducts, setAllProducts] = useState([]);
+  const navigateTo = useNavigate();
+
+  useEffect(() => {
+    if (state?.products?.length) {
+      setAllProducts(state?.products);
+    }
+  }, [state]);
+
   return (
     <>
       <div id="body">
@@ -149,126 +161,33 @@ const Home = () => {
           </div>
 
           <div id="right">
-            <div class="product">
-              <div class="image">
-                <img
-                  src="https://images.meesho.com/images/products/154286158/agoag_400.webp"
-                  alt="product"
-                />
-              </div>
-              <h5>Aadab Graceful ...</h5>
-              <h2>
-                ₹144 <span>onwards</span>
-              </h2>
-              <p>Free Delivery</p>
-              <div class="ratings">
-                <div class="rating">
-                  <h4>3.8</h4>
-                  <i class="fa-solid fa-star"></i>
+            {allProducts?.length ? (
+              allProducts.map((prod) => (
+                <div
+                  class="product"
+                  key={prod.id}
+                  onClick={() => navigateTo(`/single-product/${prod.id}`)}
+                >
+                  <div class="image">
+                    <img src={prod.image} alt="product" />
+                  </div>
+                  <h5>{prod.name}</h5>
+                  <h2>
+                    ₹{prod.price} <span>onwards</span>
+                  </h2>
+                  <p>Free Delivery</p>
+                  <div class="ratings">
+                    <div class="rating">
+                      <h4>3.8</h4>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h6>961 Reviews</h6>
+                  </div>
                 </div>
-                <h6>961 Reviews</h6>
-              </div>
-            </div>
-            <div class="product">
-              <div class="image">
-                <img
-                  src="https://images.meesho.com/images/products/151630067/fwfda_400.webp"
-                  alt="product"
-                />
-              </div>
-              <h5>Attractive Animal ...</h5>
-              <h2>
-                ₹461 <span>onwards</span>
-              </h2>
-              <p>Free Delivery</p>
-              <div class="ratings">
-                <div class="rating">
-                  <h4>3.9</h4>
-                  <i class="fa-solid fa-star"></i>
-                </div>
-                <h6>382 Reviews</h6>
-              </div>
-            </div>
-            <div class="product">
-              <div class="image">
-                <img
-                  src="https://images.meesho.com/images/products/139159431/kw3w1_400.webp"
-                  alt="product"
-                />
-              </div>
-              <h5>Women Flipflops</h5>
-              <h2>
-                ₹174 <span>onwards</span>
-              </h2>
-              <p>Free Delivery</p>
-              <div class="ratings">
-                <div class="rating">
-                  <h4>3.9</h4>
-                  <i class="fa-solid fa-star"></i>
-                </div>
-                <h6>262 Reviews</h6>
-              </div>
-            </div>
-            <div class="product">
-              <div class="image">
-                <img
-                  src="https://images.meesho.com/images/products/78594107/b1ynl_400.webp"
-                  alt="product"
-                />
-              </div>
-              <h5>Arts & Crafts Paint ...</h5>
-              <h2>
-                ₹162 <span>onwards</span>
-              </h2>
-              <p>Free Delivery</p>
-              <div class="ratings">
-                <div class="rating">
-                  <h4>4.1</h4>
-                  <i class="fa-solid fa-star"></i>
-                </div>
-                <h6>2124 Reviews</h6>
-              </div>
-            </div>
-            <div class="product">
-              <div class="image">
-                <img
-                  src="https://images.meesho.com/images/products/40186090/mloop_400.webp"
-                  alt="product"
-                />
-              </div>
-              <h5>Trendy Women Belts</h5>
-              <h2>
-                ₹138 <span>onwards</span>
-              </h2>
-              <p>Free Delivery</p>
-              <div class="ratings">
-                <div class="rating">
-                  <h4>3.7</h4>
-                  <i class="fa-solid fa-star"></i>
-                </div>
-                <h6>2863 Reviews</h6>
-              </div>
-            </div>
-            <div class="product">
-              <div class="image">
-                <img
-                  src="https://images.meesho.com/images/products/40186090/mloop_400.webp"
-                  alt="product"
-                />
-              </div>
-              <h5>Trendy Women Belts</h5>
-              <h2>
-                ₹138 <span>onwards</span>
-              </h2>
-              <p>Free Delivery</p>
-              <div class="ratings">
-                <div class="rating">
-                  <h4>3.7</h4>
-                  <i class="fa-solid fa-star"></i>
-                </div>
-                <h6>2863 Reviews</h6>
-              </div>
-            </div>
+              ))
+            ) : (
+              <h3>No Products!</h3>
+            )}
           </div>
         </div>
       </div>

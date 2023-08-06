@@ -1,87 +1,94 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./SingleProduct.css";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContexts } from "../Context/AuthContext";
 
 const SingleProduct = () => {
+  const { state } = useContext(AuthContexts);
+  const singleProd = useParams();
+  const [singleProduct, setSingleProduct] = useState({});
+  const [isShowEditBtn, setIsShowEditBtn] = useState(false);
+
+  useEffect(() => {
+    if (state?.products?.length) {
+      const newProduct = state?.products?.find(
+        (prod) => prod.id == singleProd.id
+      );
+      setSingleProduct(newProduct);
+    } else {
+      setSingleProduct({});
+    }
+  }, [state, singleProd]);
+
+  useEffect(() => {
+    if (state?.currentUser?.role == "Seller") {
+      setIsShowEditBtn(true);
+    } else {
+      setIsShowEditBtn(false);
+    }
+  }, [state]);
+
   return (
     <div id="single-product-body">
       <div id="left">
         <div id="small">
           <div class="img">
-            <img
-              src="https://images.meesho.com/images/products/152064623/b3c6y_64.webp"
-              alt="product"
-            />
+            <img src={singleProduct.image} alt="product" />
           </div>
           <div class="img">
-            <img
-              src="https://images.meesho.com/images/products/152064623/b3c6y_64.webp"
-              alt="product"
-            />
+            <img src={singleProduct.image} alt="product" />
           </div>
           <div class="img">
-            <img
-              src="https://images.meesho.com/images/products/152064623/b3c6y_64.webp"
-              alt="product"
-            />
+            <img src={singleProduct.image} alt="product" />
           </div>
           <div class="img">
-            <img
-              src="https://images.meesho.com/images/products/152064623/b3c6y_64.webp"
-              alt="product"
-            />
+            <img src={singleProduct.image} alt="product" />
           </div>
         </div>
         <div id="main">
           <div id="img">
-            <img
-              src="https://images.meesho.com/images/products/152064623/b3c6y_512.webp"
-              alt="product"
-            />
+            <img src={singleProduct.image} alt="product" />
           </div>
           <div id="buttons">
-            <div class="button">
-              <button style={{ backgroundColor: "white", color: "#9f2089" }}>
-                <i class="fa-solid fa-cart-shopping fa-lg"></i>Add to Cart
-              </button>
-            </div>
-            <div class="button">
-              <button>
-                <i class="fa-solid fa-angles-right fa-xl"></i>Buy Now
-              </button>
-            </div>
+            {isShowEditBtn && (
+              <div class="button">
+                <button>
+                  <i class="fa-regular fa-pen-to-square fa-xl"></i>Edit Product
+                </button>
+              </div>
+            )}
+            {!isShowEditBtn && (
+              <div class="button">
+                <button style={{ backgroundColor: "white", color: "#9f2089" }}>
+                  <i class="fa-solid fa-cart-shopping fa-lg"></i>Add to Cart
+                </button>
+              </div>
+            )}
+            {!isShowEditBtn && (
+              <div class="button">
+                <button>
+                  <i class="fa-solid fa-angles-right fa-xl"></i>Buy Now
+                </button>
+              </div>
+            )}
           </div>
           <div id="similar-products">
             <h3>5 Similar Products</h3>
             <div id="similar-product">
               <div class="similar">
-                <img
-                  src="https://images.meesho.com/images/products/152064623/b3c6y_128.webp"
-                  alt="product"
-                />
+                <img src={singleProduct.image} alt="product" />
               </div>
               <div class="similar">
-                <img
-                  src="https://images.meesho.com/images/products/152064624/qoysr_128.webp"
-                  alt="product"
-                />
+                <img src={singleProduct.image} alt="product" />
               </div>
               <div class="similar">
-                <img
-                  src="https://images.meesho.com/images/products/152064625/qtzq2_128.webp"
-                  alt="product"
-                />
+                <img src={singleProduct.image} alt="product" />
               </div>
               <div class="similar">
-                <img
-                  src="https://images.meesho.com/images/products/152064626/2yrhm_128.webp"
-                  alt="product"
-                />
+                <img src={singleProduct.image} alt="product" />
               </div>
               <div class="similar">
-                <img
-                  src="https://images.meesho.com/images/products/152064627/stua9_128.webp"
-                  alt="product"
-                />
+                <img src={singleProduct.image} alt="product" />
               </div>
             </div>
           </div>
@@ -89,8 +96,8 @@ const SingleProduct = () => {
       </div>
       <div id="right">
         <div id="sec-1">
-          <h3>Cotton Blend Maroon Short Sleeves Striped Tshirts</h3>
-          <h1>₹274</h1>
+          <h3>{singleProduct?.name?.toUpperCase()}</h3>
+          <h1>₹{singleProduct?.price}</h1>
           <div id="rating-review">
             <div id="rating">
               <h4>3.7</h4>

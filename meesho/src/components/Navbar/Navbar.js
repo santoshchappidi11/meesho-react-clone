@@ -1,11 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import logo from "./../../images/logo.png";
 import { useNavigate } from "react-router-dom";
+import { AuthContexts } from "../Context/AuthContext";
 
 const Navbar = () => {
-  const [isShowSidePopup, setIsShowSidePopup] = useState(false);
+  const { state, Logout } = useContext(AuthContexts);
   const naviagateTo = useNavigate();
+  const [isShowSidePopup, setIsShowSidePopup] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const [isSeller, setIsSeller] = useState(false);
+
+  useEffect(() => {
+    if (state?.currentUser?.email) {
+      setCurrentUser(state?.currentUser);
+    } else {
+      setCurrentUser({});
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (state?.currentUser?.role == "Seller") {
+      setIsSeller(true);
+    } else {
+      setIsSeller(false);
+    }
+  }, [state]);
 
   const openSidePopup = () => {
     setIsShowSidePopup(true);
@@ -47,16 +67,20 @@ const Navbar = () => {
                   <i class="fa-regular fa-user fa-1x"></i> <span>Profile</span>
                 </p>
               </div>
-              <div class="other">
-                <p>
-                  <i class="fa-regular fa-heart"></i> <span>Wishlist</span>
-                </p>
-              </div>
-              <div class="other">
-                <p onClick={() => naviagateTo("/cart")}>
-                  <i class="fa-solid fa-cart-shopping"></i> <span>Cart</span>
-                </p>
-              </div>
+              {!isSeller && (
+                <div class="other">
+                  <p>
+                    <i class="fa-regular fa-heart"></i> <span>Wishlist</span>
+                  </p>
+                </div>
+              )}
+              {!isSeller && (
+                <div class="other">
+                  <p onClick={() => naviagateTo("/cart")}>
+                    <i class="fa-solid fa-cart-shopping"></i> <span>Cart</span>
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -107,24 +131,40 @@ const Navbar = () => {
           <div class="box" id="welcome">
             <h3>Welcome</h3>
             <span>To access account and manage orders</span>
-            <h3>Hello,</h3>
-            <p>Santosh</p>
-            <div id="button">
-              <button onClick={() => naviagateTo("/login")}>
-                SINGIN / SIGNUP
-              </button>
-            </div>
-            <div id="button">
-              <button onClick={() => naviagateTo("/profile")}>PROFILE</button>
-            </div>
-            <div id="button">
-              <button onClick={() => naviagateTo("/add-product")}>
-                ADD PRODUCT
-              </button>
-            </div>
-            <div id="button">
-              <button>LOGOUT</button>
-            </div>
+
+            {currentUser?.name && (
+              <>
+                <h3>Hello,</h3>
+                <p>
+                  {currentUser?.name?.toUpperCase()}({currentUser?.role})
+                </p>
+              </>
+            )}
+
+            {!currentUser?.name && (
+              <div id="button">
+                <button onClick={() => naviagateTo("/login")}>
+                  SINGIN / SIGNUP
+                </button>
+              </div>
+            )}
+            {currentUser?.name && (
+              <div id="button">
+                <button onClick={() => naviagateTo("/profile")}>PROFILE</button>
+              </div>
+            )}
+            {isSeller && (
+              <div id="button">
+                <button onClick={() => naviagateTo("/add-product")}>
+                  ADD PRODUCT
+                </button>
+              </div>
+            )}
+            {currentUser?.name && (
+              <div id="button">
+                <button onClick={Logout}>LOGOUT</button>
+              </div>
+            )}
           </div>
         </div>
       )}

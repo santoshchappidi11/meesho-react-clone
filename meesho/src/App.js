@@ -42,9 +42,9 @@ function App() {
         />
         <Route exact path="/bags-footwear" element={<BagsFootwear />} />
         <Route exact path="/electronics" element={<Electronics />} />
-        <Route exact path="/single-product" element={<SingleProduct />} />
+        <Route exact path="/single-product/:id" element={<SingleProduct />} />
         <Route exact path="/add-product" element={<AddProduct />} />
-        <Route exact path="/edit-product" element={<EditProduct />} />
+        <Route exact path="/edit-product/:id" element={<EditProduct />} />
         <Route exact path="/cart" element={<Cart />} />
       </Routes>
       <Footer />

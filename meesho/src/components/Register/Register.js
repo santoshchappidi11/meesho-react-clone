@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
   const naviagateTo = useNavigate();
+  const [registerData, setRegisterData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "Buyer",
+    cart: [],
+  });
+
+  const handleChangeValues = (e) => {
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+  };
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      registerData.name &&
+      registerData.email &&
+      registerData.password &&
+      registerData.role
+    ) {
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+      allUsers.push(registerData);
+      localStorage.setItem("users", JSON.stringify(allUsers));
+      setRegisterData({ name: "", email: "", password: "", role: "Buyer" });
+      naviagateTo("/login");
+      toast.success("Registered successfully!");
+    } else {
+      toast.error("Please fill all the details!");
+    }
+  };
 
   return (
     <div id="register-body">
@@ -15,20 +47,41 @@ const Register = () => {
           />
         </div>
         <div id="register-main">
-          <form>
+          <form onSubmit={handleRegisterSubmit}>
             <h3>Sign Up to view your profile</h3>
             <div id="fields">
-              <input type="text" placeholder="Enter Name" />
-              <input type="email" placeholder=" Enter Email" />
-              <input type="password" placeholder="Enter Password" />
-              <input type="password" placeholder="Confirm Password" />
-              <select>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter Name"
+                value={registerData.name}
+                onChange={handleChangeValues}
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder=" Enter Email"
+                value={registerData.email}
+                onChange={handleChangeValues}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter Password"
+                value={registerData.password}
+                onChange={handleChangeValues}
+              />
+              <select
+                name="role"
+                value={registerData.role}
+                onChange={handleChangeValues}
+              >
                 <option>Buyer</option>
                 <option>Seller</option>
               </select>
             </div>
             <div id="button">
-              <button>Continue</button>
+              <button type="submit">Continue</button>
             </div>
           </form>
           <div id="sign-in">
