@@ -144,7 +144,7 @@ const Navbar = () => {
             {!currentUser?.name && (
               <div id="button">
                 <button onClick={() => naviagateTo("/login")}>
-                  SINGIN / SIGNUP
+                  SIGNIN / SIGNUP
                 </button>
               </div>
             )}

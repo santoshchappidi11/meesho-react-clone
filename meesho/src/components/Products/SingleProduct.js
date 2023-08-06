@@ -2,12 +2,26 @@ import React, { useContext, useEffect, useState } from "react";
 import "./SingleProduct.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContexts } from "../Context/AuthContext";
+import { toast } from "react-hot-toast";
 
 const SingleProduct = () => {
   const { state } = useContext(AuthContexts);
   const singleProd = useParams();
   const [singleProduct, setSingleProduct] = useState({});
   const [isShowEditBtn, setIsShowEditBtn] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const navigateTo = useNavigate();
+
+  useEffect(() => {
+    if (state?.currentUser?.email) {
+      setCurrentUser(state?.currentUser);
+      setIsUserLoggedIn(true);
+    } else {
+      setCurrentUser({});
+      setIsUserLoggedIn(false);
+    }
+  }, [state]);
 
   useEffect(() => {
     if (state?.products?.length) {
@@ -27,6 +41,24 @@ const SingleProduct = () => {
       setIsShowEditBtn(false);
     }
   }, [state]);
+
+  const addToCart = () => {
+    if (isUserLoggedIn) {
+      const allUsers = JSON.parse(localStorage.getItem("users"));
+      for (let i = 0; i < allUsers.length; i++) {
+        if (
+          allUsers[i].email == currentUser.email &&
+          allUsers[i].password == currentUser.password
+        ) {
+          allUsers[i].cart.push(singleProduct);
+          toast.success("Product added to cart!");
+        }
+      }
+      localStorage.setItem("users", JSON.stringify(allUsers));
+    } else {
+      toast.error("Please login to add product to cart!");
+    }
+  };
 
   return (
     <div id="single-product-body">
@@ -52,14 +84,21 @@ const SingleProduct = () => {
           <div id="buttons">
             {isShowEditBtn && (
               <div class="button">
-                <button>
+                <button
+                  onClick={() =>
+                    navigateTo(`/edit-product/${singleProduct.id}`)
+                  }
+                >
                   <i class="fa-regular fa-pen-to-square fa-xl"></i>Edit Product
                 </button>
               </div>
             )}
             {!isShowEditBtn && (
               <div class="button">
-                <button style={{ backgroundColor: "white", color: "#9f2089" }}>
+                <button
+                  style={{ backgroundColor: "white", color: "#9f2089" }}
+                  onClick={addToCart}
+                >
                   <i class="fa-solid fa-cart-shopping fa-lg"></i>Add to Cart
                 </button>
               </div>
