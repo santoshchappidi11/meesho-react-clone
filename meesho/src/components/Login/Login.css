@@ -106,6 +106,7 @@
   /* text-decoration: none; */
   color: #9f2089;
   font-weight: bold;
+  cursor: pointer;
 }
 
 #login-body > #login > #login-main > #policy {

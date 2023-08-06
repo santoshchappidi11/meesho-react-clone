@@ -27,20 +27,22 @@
   align-items: center;
   /* border: 1px solid black; */
 }
-#meesho-navbar > #navbar > #left > #logo > a {
+#meesho-navbar > #navbar > #left > #logo > p {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
   /* margin-top: 5px; */
   /* border: 1px solid black; */
 }
 
-#meesho-navbar > #navbar > #left > #logo > a > img {
+#meesho-navbar > #navbar > #left > #logo > p > img {
   height: 100%;
   width: 100%;
   object-fit: cover;
+  cursor: pointer;
   filter: contrast(150%);
 }
 
@@ -117,29 +119,29 @@
   width: 40%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-end;
   /* border: 1px solid black; */
 }
 
 #meesho-navbar > #navbar > #right > #others > .other {
-  height: 80%;
+  height: 85%;
   /* width: 40%; */
   /* border: 1px solid black; */
 }
 
-#meesho-navbar > #navbar > #right > #others > .other > a {
+#meesho-navbar > #navbar > #right > #others > .other > p {
   height: 100%;
   width: 100%;
+  cursor: pointer;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  text-decoration: none;
   color: black;
   /* border: 1px solid black; */
 }
 
-#meesho-navbar > #navbar > #right > #others > .other > a > span {
+#meesho-navbar > #navbar > #right > #others > .other > p > span {
   font-size: 15px;
 }
 
@@ -190,4 +192,66 @@
   color: #a9028d;
   font-weight: 400;
   border-bottom: 3px solid #9f2089;
+}
+
+/* ----------------------------------login-register-popup------------------------------- */
+.modal-box {
+  position: fixed;
+  z-index: 1;
+  right: 60px;
+  top: 62px;
+  /* width: 22%; */
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 5px;
+  box-shadow: rgba(168, 168, 168, 0.2) 0px 2px 29px 0px;
+  /* border: 1px solid black; */
+}
+
+.modal-box > .box {
+  height: 30%;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid black; */
+}
+
+.modal-box > #welcome > h3 {
+  padding: 0;
+  margin: 0 0 4px 0;
+  font-size: 18px;
+}
+
+.modal-box > #welcome > span {
+  width: 100%;
+  font-size: 12px;
+  padding-top: 5px;
+  padding: 0;
+  margin: 0 0 20px 0;
+  /* border: 1px solid black; */
+}
+
+.modal-box > #welcome > p {
+  width: 100%;
+  font-size: 16px;
+  /* padding-top: 2px; */
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.modal-box > #welcome > #button {
+  margin: 0 0 15px 0;
+}
+
+.modal-box > #welcome > #button > button {
+  padding: 10px 24px;
+  border: none;
+  background: none;
+  font-weight: 600;
+  color: #9f2089;
+  border: 1px solid rgb(214, 214, 214);
+  cursor: pointer;
 }

@@ -1,7 +1,10 @@
 import React from "react";
 import "./Register.css";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const naviagateTo = useNavigate();
+
   return (
     <div id="register-body">
       <div id="register">
@@ -30,7 +33,8 @@ const Register = () => {
           </form>
           <div id="sign-in">
             <span>
-              Already Have an account? <b>Sign In</b>
+              Already Have an account?{" "}
+              <b onClick={() => naviagateTo("/login")}>Sign In</b>
             </span>
           </div>
           <div id="policy">

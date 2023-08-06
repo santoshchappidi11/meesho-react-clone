@@ -1,7 +1,10 @@
 import React from "react";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const naviagateTo = useNavigate();
+
   return (
     <div id="login-body">
       <div id="login">
@@ -24,7 +27,8 @@ const Login = () => {
           </form>
           <div id="sign-in">
             <span>
-              Don't Have an account? <b>Sign Up</b>
+              Don't Have an account?{" "}
+              <b onClick={() => naviagateTo("/register")}>Sign Up</b>
             </span>
           </div>
           <div id="policy">

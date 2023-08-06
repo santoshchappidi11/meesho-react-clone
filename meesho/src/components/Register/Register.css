@@ -131,6 +131,7 @@
   /* text-decoration: none; */
   color: #9f2089;
   font-weight: bold;
+  cursor: pointer;
 }
 
 #register-body > #register > #register-main > #policy {
