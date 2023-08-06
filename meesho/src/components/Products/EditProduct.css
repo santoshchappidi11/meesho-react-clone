@@ -144,6 +144,7 @@
   background-color: #9f2089;
   color: white;
   font-size: 16px;
+  cursor: pointer;
 }
 
 #edit-product-body > #edit-product > #edit-product-main > #sign-in {

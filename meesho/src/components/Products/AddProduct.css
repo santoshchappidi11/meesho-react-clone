@@ -129,6 +129,7 @@
   background-color: #9f2089;
   color: white;
   font-size: 16px;
+  cursor: pointer;
 }
 
 #add-product-body > #add-product > #add-product-main > #sign-in {
