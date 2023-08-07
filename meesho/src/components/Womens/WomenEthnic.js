@@ -136,33 +136,35 @@ const WomenEthnic = () => {
         </div>
 
         <div id="right">
-          {allProducts?.length ? (
-            allProducts.map((prod) => (
-              <div
-                class="product"
-                key={prod.id}
-                onClick={() => navigateTo(`/single-product/${prod.id}`)}
-              >
-                <div class="image">
-                  <img src={prod.image} alt="product" />
-                </div>
-                <h5>{prod.name}</h5>
-                <h2>
-                  ₹{prod.price} <span>onwards</span>
-                </h2>
-                <p>Free Delivery</p>
-                <div class="ratings">
-                  <div class="rating">
-                    <h4>3.8</h4>
-                    <i class="fa-solid fa-star"></i>
+          <div id="all-products">
+            {allProducts?.length ? (
+              allProducts.map((prod) => (
+                <div
+                  class="product"
+                  key={prod.id}
+                  onClick={() => navigateTo(`/single-product/${prod.id}`)}
+                >
+                  <div class="image">
+                    <img src={prod.image} alt="product" />
                   </div>
-                  <h6>961 Reviews</h6>
+                  <h5>{prod.name}</h5>
+                  <h2>
+                    ₹{prod.price} <span>onwards</span>
+                  </h2>
+                  <p>Free Delivery</p>
+                  <div class="ratings">
+                    <div class="rating">
+                      <h4>3.8</h4>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h6>961 Reviews</h6>
+                  </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <h3>No Products!</h3>
-          )}
+              ))
+            ) : (
+              <h3>No Products!</h3>
+            )}
+          </div>
         </div>
       </div>
     </div>

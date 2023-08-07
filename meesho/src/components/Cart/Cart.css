@@ -3,6 +3,7 @@
   width: 70%;
   margin: auto;
   margin-top: 155px;
+  padding: 0 0 50px 0;
   display: flex;
   justify-content: space-evenly;
   /* border: 1px solid black; */
@@ -235,4 +236,31 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+
+#no-prod-msg {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#no-prod-msg > h2 {
+  font-weight: 600;
+  font-size: 25px;
+  color: rgb(77, 77, 77);
+}
+
+#login-cart-msg {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-cart-msg > h2 {
+  font-weight: 600;
+  font-size: 25px;
+  color: rgb(77, 77, 77);
 }
