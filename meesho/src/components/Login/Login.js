@@ -1,42 +1,39 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 import { AuthContexts } from "../Context/AuthContext";
 
 const Login = () => {
-  const { Login } = useContext(AuthContexts);
-  const naviagateTo = useNavigate();
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const { state, Login } = useContext(AuthContexts);
+  const navigateTo = useNavigate();
+  const [userData, setUserData] = useState({ email: "", password: "" });
+
+  useEffect(() => {
+    if (state?.currentUser?.name) {
+      navigateTo("/");
+    }
+  }, [state, navigateTo]);
 
   const handleChangeValues = (e) => {
-    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+    setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
-    if (loginData.email && loginData.password) {
-      const allUsers = JSON.parse(localStorage.getItem("users"));
-      let flag = false;
-      for (let i = 0; i < allUsers.length; i++) {
-        if (
-          allUsers[i].email == loginData.email &&
-          allUsers[i].password == loginData.password
-        ) {
-          flag = true;
-          // localStorage.setItem("current-user", JSON.stringify(allUsers[i]));
-          Login(allUsers[i]);
-          setLoginData({ email: "", password: "" });
-          naviagateTo("/");
-          toast.success("Login successfull!");
-          break;
-        }
-      }
-
-      if (flag == false) {
-        toast.error("Invalid email or password!");
-        setLoginData({ email: "", password: "" });
+    if (userData.email && userData.password) {
+      const response = await axios.post("http://localhost:8002/login", {
+        userData,
+      });
+      if (response.data.success) {
+        Login(response.data);
+        toast.success(response.data.message);
+        setUserData({ email: "", password: "" });
+        navigateTo("/");
+      } else {
+        toast.error(response.data.message);
       }
     } else {
       toast.error("Please fill all the fields!");
@@ -59,15 +56,15 @@ const Login = () => {
               <input
                 type="email"
                 name="email"
-                placeholder=" Enter Email"
-                value={loginData.email}
+                placeholder=" Enter Your Email"
+                value={userData.email}
                 onChange={handleChangeValues}
               />
               <input
                 type="password"
                 name="password"
-                placeholder="Enter Password"
-                value={loginData.password}
+                placeholder="Enter Your Password"
+                value={userData.password}
                 onChange={handleChangeValues}
               />
             </div>
@@ -78,7 +75,7 @@ const Login = () => {
           <div id="sign-in">
             <span>
               Don't Have an account?{" "}
-              <b onClick={() => naviagateTo("/register")}>Sign Up</b>
+              <b onClick={() => navigateTo("/register")}>Sign Up</b>
             </span>
           </div>
           <div id="policy">

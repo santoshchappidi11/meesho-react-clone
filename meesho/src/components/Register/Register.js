@@ -1,37 +1,62 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import axios from "axios";
+import { AuthContexts } from "../Context/AuthContext";
 
 const Register = () => {
-  const naviagateTo = useNavigate();
-  const [registerData, setRegisterData] = useState({
+  const { state } = useContext(AuthContexts);
+  const navigateTo = useNavigate();
+  const [userData, setUserData] = useState({
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
     role: "Buyer",
-    cart: [],
   });
 
+  useEffect(() => {
+    if (state?.currentUser?.name) {
+      navigateTo("/");
+    }
+  }, [state, navigateTo]);
+
   const handleChangeValues = (e) => {
-    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+    setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
 
     if (
-      registerData.name &&
-      registerData.email &&
-      registerData.password &&
-      registerData.role
+      userData.name &&
+      userData.email &&
+      userData.password &&
+      userData.confirmPassword &&
+      userData.role
     ) {
-      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
-      allUsers.push(registerData);
-      localStorage.setItem("users", JSON.stringify(allUsers));
-      setRegisterData({ name: "", email: "", password: "", role: "Buyer" });
-      naviagateTo("/login");
-      toast.success("Registered successfully!");
+      if (userData.password == userData.confirmPassword) {
+        const response = await axios.post("http://localhost:8002/register", {
+          userData,
+        });
+
+        if (response.data.success) {
+          setUserData({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            role: "Buyer",
+          });
+          toast.success(response.data.message);
+          navigateTo("/login");
+        } else {
+          toast.error(response.data.message);
+        }
+      } else {
+        toast.error("Password and ConfirmPassword does not match!");
+      }
     } else {
       toast.error("Please fill all the details!");
     }
@@ -53,27 +78,34 @@ const Register = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="Enter Name"
-                value={registerData.name}
+                placeholder="Enter Your Name"
+                value={userData.name}
                 onChange={handleChangeValues}
               />
               <input
                 type="email"
                 name="email"
-                placeholder=" Enter Email"
-                value={registerData.email}
+                placeholder=" Enter Your Email"
+                value={userData.email}
                 onChange={handleChangeValues}
               />
               <input
                 type="password"
                 name="password"
-                placeholder="Enter Password"
-                value={registerData.password}
+                placeholder="Enter Your Password"
+                value={userData.password}
+                onChange={handleChangeValues}
+              />
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Enter Confirm Password"
+                value={userData.confirmPassword}
                 onChange={handleChangeValues}
               />
               <select
                 name="role"
-                value={registerData.role}
+                value={userData.role}
                 onChange={handleChangeValues}
               >
                 <option>Buyer</option>
@@ -87,7 +119,7 @@ const Register = () => {
           <div id="sign-in">
             <span>
               Already Have an account?{" "}
-              <b onClick={() => naviagateTo("/login")}>Sign In</b>
+              <b onClick={() => navigateTo("/login")}>Sign In</b>
             </span>
           </div>
           <div id="policy">
