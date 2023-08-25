@@ -42,10 +42,10 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const getCurrentUser = async () => {
-      const token = JSON.parse(localStorage.getItem("MeeshoUserToken")) || "";
+      const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
       if (token?.length) {
         const response = await axios.post(
-          "http://localhost:8002/get-current-user",
+          "http://localhost:8000/get-current-user",
           { token }
         );
 

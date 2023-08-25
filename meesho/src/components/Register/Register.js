@@ -37,7 +37,7 @@ const Register = () => {
       userData.role
     ) {
       if (userData.password == userData.confirmPassword) {
-        const response = await axios.post("http://localhost:8002/register", {
+        const response = await axios.post("http://localhost:8000/register", {
           userData,
         });
 

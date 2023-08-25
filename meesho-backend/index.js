@@ -99,6 +99,6 @@ mongoose
     console.log("Something went wrong", error);
   });
 
-app.listen(8002, () => {
-  console.log("Listening on port 8002");
+app.listen(8000, () => {
+  console.log("Listening on port 8000");
 });

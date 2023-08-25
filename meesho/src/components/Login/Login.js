@@ -24,7 +24,7 @@ const Login = () => {
     e.preventDefault();
 
     if (userData.email && userData.password) {
-      const response = await axios.post("http://localhost:8002/login", {
+      const response = await axios.post("http://localhost:8000/login", {
         userData,
       });
       if (response.data.success) {
