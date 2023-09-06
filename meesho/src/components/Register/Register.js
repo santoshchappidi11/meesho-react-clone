@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import axios from "axios";
 import { AuthContexts } from "../Context/AuthContext";
+import api from "../../ApiConfig/index";
+// import axios from "axios";
 
 const Register = () => {
   const { state } = useContext(AuthContexts);
@@ -37,22 +38,26 @@ const Register = () => {
       userData.role
     ) {
       if (userData.password == userData.confirmPassword) {
-        const response = await axios.post("http://localhost:8000/register", {
-          userData,
-        });
-
-        if (response.data.success) {
-          setUserData({
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            role: "Buyer",
+        try {
+          const response = await api.post("/register", {
+            userData,
           });
-          toast.success(response.data.message);
-          navigateTo("/login");
-        } else {
-          toast.error(response.data.message);
+
+          if (response.data.success) {
+            setUserData({
+              name: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+              role: "Buyer",
+            });
+            toast.success(response.data.message);
+            navigateTo("/login");
+          } else {
+            toast.error(response.data.message);
+          }
+        } catch (error) {
+          toast.error(error.response.data.message);
         }
       } else {
         toast.error("Password and ConfirmPassword does not match!");
@@ -110,6 +115,7 @@ const Register = () => {
               >
                 <option>Buyer</option>
                 <option>Seller</option>
+                <option>Admin</option>
               </select>
             </div>
             <div id="button">

@@ -3,10 +3,11 @@ import "./SingleProduct.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContexts } from "../Context/AuthContext";
 import { toast } from "react-hot-toast";
+import api from "../../ApiConfig/index";
 
 const SingleProduct = () => {
   const { state } = useContext(AuthContexts);
-  const singleProd = useParams();
+  const { singleProdId } = useParams();
   const [singleProduct, setSingleProduct] = useState({});
   const [isShowEditBtn, setIsShowEditBtn] = useState(false);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -24,15 +25,25 @@ const SingleProduct = () => {
   }, [state]);
 
   useEffect(() => {
-    if (state?.products?.length) {
-      const newProduct = state?.products?.find(
-        (prod) => prod.id == singleProd.id
-      );
-      setSingleProduct(newProduct);
-    } else {
-      setSingleProduct({});
-    }
-  }, [state, singleProd]);
+    const getSingleProductData = async () => {
+      try {
+        const response = await api.post("/get-singleproduct-data", {
+          productId: singleProdId,
+        });
+
+        if (response.data.success) {
+          setSingleProduct(response.data.product);
+        } else {
+          setSingleProduct({});
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+
+    getSingleProductData();
+  }, [singleProdId]);
 
   useEffect(() => {
     if (state?.currentUser?.role == "Seller") {
@@ -42,23 +53,7 @@ const SingleProduct = () => {
     }
   }, [state]);
 
-  const addToCart = () => {
-    if (isUserLoggedIn) {
-      const allUsers = JSON.parse(localStorage.getItem("users"));
-      for (let i = 0; i < allUsers.length; i++) {
-        if (
-          allUsers[i].email == currentUser.email &&
-          allUsers[i].password == currentUser.password
-        ) {
-          allUsers[i].cart.push(singleProduct);
-          toast.success("Product added to cart!");
-        }
-      }
-      localStorage.setItem("users", JSON.stringify(allUsers));
-    } else {
-      toast.error("Please login to add product to cart!");
-    }
-  };
+  const addToCart = (productId) => {};
 
   return (
     <div id="single-product-body">
@@ -86,7 +81,7 @@ const SingleProduct = () => {
               <div class="button">
                 <button
                   onClick={() =>
-                    navigateTo(`/edit-product/${singleProduct.id}`)
+                    navigateTo(`/edit-product/${singleProduct._id}`)
                   }
                 >
                   <i class="fa-regular fa-pen-to-square fa-xl"></i>Edit Product
@@ -97,7 +92,7 @@ const SingleProduct = () => {
               <div class="button">
                 <button
                   style={{ backgroundColor: "white", color: "#9f2089" }}
-                  onClick={addToCart}
+                  onClick={() => addToCart(singleProduct._id)}
                 >
                   <i class="fa-solid fa-cart-shopping fa-lg"></i>Add to Cart
                 </button>

@@ -9,17 +9,32 @@ import sec5 from "./../../images/sec-5.JPG";
 import sec6 from "./../../images/sec-6.JPG";
 import { AuthContexts } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import api from "../../ApiConfig/index";
 
 const Home = () => {
-  const { state } = useContext(AuthContexts);
+  // const { state } = useContext(AuthContexts);
   const [allProducts, setAllProducts] = useState([]);
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    if (state?.products?.length) {
-      setAllProducts(state?.products);
-    }
-  }, [state]);
+    const getAllProducts = async () => {
+      try {
+        const response = await api.get("/all-products");
+
+        if (response.data.success) {
+          setAllProducts(response.data.products);
+        } else {
+          setAllProducts([]);
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+
+    getAllProducts();
+  }, []);
 
   return (
     <>
@@ -166,8 +181,8 @@ const Home = () => {
                 allProducts.map((prod) => (
                   <div
                     class="product"
-                    key={prod.id}
-                    onClick={() => navigateTo(`/single-product/${prod.id}`)}
+                    key={prod._id}
+                    onClick={() => navigateTo(`/single-product/${prod._id}`)}
                   >
                     <div class="image">
                       <img src={prod.image} alt="product" />

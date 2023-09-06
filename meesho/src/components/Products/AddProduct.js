@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
 import "./AddProduct.css";
-import { AuthContexts } from "../Context/AuthContext";
-import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-hot-toast";
+import api from "../../ApiConfig/index";
+import { useNavigate } from "react-router-dom";
+// import { AuthContexts } from "../Context/AuthContext";
+// import { v4 as uuidv4 } from "uuid";
 
 const AddProduct = () => {
-  const { contextProducts } = useContext(AuthContexts);
+  // const { contextProducts } = useContext(AuthContexts);
+  const navigateTo = useNavigate();
   const [addProductData, setAddProductData] = useState({
     name: "",
     image: "",
@@ -17,7 +20,7 @@ const AddProduct = () => {
     setAddProductData({ ...addProductData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitAddProduct = (e) => {
+  const handleSubmitAddProduct = async (e) => {
     e.preventDefault();
 
     if (
@@ -26,12 +29,25 @@ const AddProduct = () => {
       addProductData.price &&
       addProductData.category
     ) {
-      const allProducts = JSON.parse(localStorage.getItem("products")) || [];
-      let randomId = uuidv4();
-      addProductData["id"] = randomId;
-      allProducts.push(addProductData);
-      contextProducts(allProducts);
-      toast.success("Product added successfully!");
+      try {
+        const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+
+        if (token) {
+          const response = await api.post("/add-product", {
+            addProductData,
+            token,
+          });
+
+          if (response.data.success) {
+            toast.success(response.data.message);
+            navigateTo("/");
+          } else {
+            toast.error(response.data.message);
+          }
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     } else {
       toast.error("Please fill all the fields!");
     }
@@ -76,17 +92,14 @@ const AddProduct = () => {
                 value={addProductData.category}
                 onChange={handleChangeValues}
               >
-                <option>Women Ethnic</option>
-                <option>Women Western</option>
+                <option>Women-Ethnic</option>
+                <option>Women-Western</option>
                 <option>Mens</option>
                 <option>Kids</option>
                 <option>Home&Kitchen</option>
-                <option>Beauty</option>
-                <option>Health</option>
-                <option>Jewellery</option>
-                <option>Accessories</option>
-                <option>Bags</option>
-                <option>Footwear</option>
+                <option>Beauty&Health</option>
+                <option>Jewellery&Accessories</option>
+                <option>Bags&Footwear</option>
                 <option>Electronics</option>
               </select>
             </div>

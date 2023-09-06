@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import axios from "axios";
 import { AuthContexts } from "../Context/AuthContext";
+import api from "../../ApiConfig/index";
+// import axios from "axios";
 
 const Login = () => {
   const { state, Login } = useContext(AuthContexts);
@@ -24,16 +25,20 @@ const Login = () => {
     e.preventDefault();
 
     if (userData.email && userData.password) {
-      const response = await axios.post("http://localhost:8000/login", {
-        userData,
-      });
-      if (response.data.success) {
-        Login(response.data);
-        toast.success(response.data.message);
-        setUserData({ email: "", password: "" });
-        navigateTo("/");
-      } else {
-        toast.error(response.data.message);
+      try {
+        const response = await api.post("/login", {
+          userData,
+        });
+        if (response.data.success) {
+          Login(response.data);
+          toast.success(response.data.message);
+          setUserData({ email: "", password: "" });
+          navigateTo("/");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
       }
     } else {
       toast.error("Please fill all the fields!");

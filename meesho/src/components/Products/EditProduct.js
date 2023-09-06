@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { AuthContexts } from "../Context/AuthContext";
 
 const EditProduct = () => {
-  const singleProduct = useParams();
+  const { editProdId } = useParams();
   const { state, contextProducts } = useContext(AuthContexts);
   const [productsContext, setProductsContext] = useState([]);
   const [editProductData, setEditProductData] = useState({
@@ -19,16 +19,16 @@ const EditProduct = () => {
     setEditProductData({ ...editProductData, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    if (state.products?.length) {
-      const newProduct = state?.products?.find(
-        (prod) => prod.id == singleProduct.id
-      );
-      setEditProductData(newProduct);
-    } else {
-      setEditProductData({});
-    }
-  }, [state, singleProduct]);
+  // useEffect(() => {
+  //   if (state.products?.length) {
+  //     const newProduct = state?.products?.find(
+  //       (prod) => prod.id == singleProduct.id
+  //     );
+  //     setEditProductData(newProduct);
+  //   } else {
+  //     setEditProductData({});
+  //   }
+  // }, [state, singleProduct]);
 
   useEffect(() => {
     if (state?.currentUser) {
@@ -47,23 +47,6 @@ const EditProduct = () => {
       editProductData.price &&
       editProductData.category
     ) {
-      for (let i = 0; i < productsContext.length; i++) {
-        if (productsContext[i].id == singleProduct.id) {
-          productsContext[i].id = editProductData.id;
-          productsContext[i].name = editProductData.name;
-          productsContext[i].image = editProductData.image;
-          productsContext[i].price = editProductData.price;
-          productsContext[i].category = editProductData.category;
-        }
-      }
-      contextProducts(productsContext);
-      setEditProductData({
-        name: "",
-        image: "",
-        price: "",
-        category: "Men",
-      });
-      toast.success("Product updated successfully!");
     } else {
       toast.error("Please fill all the fields!");
     }

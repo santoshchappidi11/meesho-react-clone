@@ -13,6 +13,7 @@ import {
   addRating,
   allProducts,
   deleteYourProduct,
+  getSingleProduct,
   getYourProducts,
   updateYourProduct,
 } from "./Controllers/Product.controller.js";
@@ -52,28 +53,23 @@ app.get("/", (req, res) => {
 });
 
 app.post("/register", Register);
-
 app.post("/login", Login);
-
 app.post("/get-current-user", getCurrentUser);
-
-app.post("/add-product", checkSeller, addProduct);
-
 app.get("/all-products", allProducts);
+app.post("/get-singleproduct-data", getSingleProduct);
 
+// seller
+app.post("/add-product", checkSeller, addProduct);
 app.get("/get-your-products", checkSeller, getYourProducts);
-
 app.patch("/update-your-product", checkSeller, updateYourProduct);
 app.delete("/delete-your-product", checkSeller, deleteYourProduct);
 
+// buyer
 app.post("/add-to-cart", addToCart);
 app.get("/get-cart-products", getCartProducts);
 app.delete("/remove-cart-product", removeCartProduct);
-
 app.post("/add-to-wishlist", addToWishlist);
 app.get("/get-wishlist-products", getWishlistProducts);
-
-// buyer
 
 // admin
 app.get("/get-all-buyers", checkIsAdmin, getAllBuyers);

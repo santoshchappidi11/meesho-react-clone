@@ -25,26 +25,26 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
+        <Route exact path="/" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/profile" element={<Profile />} />
-        <Route exact path="/" element={<Home />} />
         <Route exact path="/women-ethnic" element={<WomenEthnic />} />
         <Route exact path="/women-western" element={<WomenWestern />} />
         <Route exact path="/mens" element={<Mens />} />
         <Route exact path="/kids" element={<Kids />} />
-        <Route exact path="/home-kitchen" element={<HomeKitchen />} />
-        <Route exact path="/beauty-health" element={<BeautyHealth />} />
+        <Route exact path="/home&kitchen" element={<HomeKitchen />} />
+        <Route exact path="/beauty&health" element={<BeautyHealth />} />
         <Route
           exact
-          path="/jewellery-accessories"
+          path="/jewellery&accessories"
           element={<JewelleryAccessories />}
         />
-        <Route exact path="/bags-footwear" element={<BagsFootwear />} />
+        <Route exact path="/bags&footwear" element={<BagsFootwear />} />
         <Route exact path="/electronics" element={<Electronics />} />
-        <Route exact path="/single-product/:id" element={<SingleProduct />} />
+        <Route exact path="/single-product/:singleProdId" element={<SingleProduct />} />
         <Route exact path="/add-product" element={<AddProduct />} />
-        <Route exact path="/edit-product/:id" element={<EditProduct />} />
+        <Route exact path="/edit-product/:editProdId" element={<EditProduct />} />
         <Route exact path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
