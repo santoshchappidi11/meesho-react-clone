@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Cart.css";
 import { AuthContexts } from "../Context/AuthContext";
 import { toast } from "react-hot-toast";
+import api from "../../ApiConfig/index";
 // import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
@@ -23,19 +24,24 @@ const Cart = () => {
   }, [state]);
 
   useEffect(() => {
-    if (isUserLoggedIn) {
-      const allUsers = JSON.parse(localStorage.getItem("users"));
-      for (let i = 0; i < allUsers.length; i++) {
-        if (
-          allUsers[i].email == currentUser.email &&
-          allUsers[i].password == currentUser.password
-        ) {
-          setCartProducts(allUsers[i].cart);
-          break;
+    const getAllCartProducts = async () => {
+      try {
+        const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+        const response = await api.post("/get-cart-products", { token });
+
+        if (response.data.success) {
+          setCartProducts(response.data.products);
+        } else {
+          setCartProducts([]);
+          toast.error(response.data.message);
         }
+      } catch (error) {
+        toast.error(error.response.data.message);
       }
-    }
-  }, [currentUser, isUserLoggedIn]);
+    };
+
+    getAllCartProducts();
+  }, []);
 
   useEffect(() => {
     if (cartProducts?.length) {
@@ -49,46 +55,39 @@ const Cart = () => {
     }
   }, [cartProducts]);
 
-  const removeCartProduct = (index) => {
-    if (currentUser) {
-      const allUsers = JSON.parse(localStorage.getItem("users"));
-      for (let i = 0; i < allUsers.length; i++) {
-        if (
-          allUsers[i].email == currentUser.email &&
-          allUsers[i].password == currentUser.password
-        ) {
-          allUsers[i].cart.splice(index, 1);
-          setCartProducts(allUsers[i].cart);
-          localStorage.setItem("users", JSON.stringify(allUsers));
-          toast.success("Product removed!");
-          break;
-        }
+  const removeCartProduct = async (productId) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+      const response = await api.post("/remove-cart-product", {
+        token,
+        productId,
+      });
+
+      if (response.data.success) {
+        setCartProducts(response.data.products);
+        toast.success(response.data.message);
+      } else {
+        toast.success(response.data.message);
+        setCartProducts([]);
       }
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   };
 
-  const removeAllCartProducts = () => {
-    if (currentUser) {
-      if (cartProducts.length > 0) {
-        const allUsers = JSON.parse(localStorage.getItem("users"));
+  const removeAllCartProducts = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+      const response = await api.post("/remove-all-cart-products", { token });
 
-        for (let i = 0; i < allUsers.length; i++) {
-          if (
-            allUsers[i].email == currentUser.email &&
-            allUsers[i].password == currentUser.password
-          ) {
-            allUsers[i].cart = [];
-            setCartProducts([]);
-            localStorage.setItem("users", JSON.stringify(allUsers));
-            toast.success(
-              "Thank You for shopping, your product will deliver soon!"
-            );
-            break;
-          }
-        }
+      if (response.data.success) {
+        setCartProducts([]);
+        toast.success(response.data.message);
       } else {
-        toast.error("Please add some products to cart before checkout!");
+        toast.error(response.data.message);
       }
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   };
 
@@ -105,8 +104,8 @@ const Cart = () => {
             )}
             <div id="cart-products">
               {cartProducts?.length ? (
-                cartProducts.map((prod, index) => (
-                  <div class="main-item" key={prod.id}>
+                cartProducts.map((prod) => (
+                  <div class="main-item" key={prod._id}>
                     <div class="item-details">
                       <div class="img">
                         <img src={prod.image} alt="product" />
@@ -120,7 +119,7 @@ const Cart = () => {
                         <span>₹{prod.price}</span>
                         <div
                           id="remove"
-                          onClick={() => removeCartProduct(index)}
+                          onClick={() => removeCartProduct(prod._id)}
                         >
                           <i class="fa-solid fa-xmark fa-sm"></i>
                           <h4>REMOVE</h4>
@@ -153,7 +152,7 @@ const Cart = () => {
             </div>
             <div id="total-price">
               <h3>Order Total</h3>
-              <span>₹{cartTotalPrice && cartTotalPrice}</span>
+              <h3>₹{cartTotalPrice && cartTotalPrice}</h3>
             </div>
             <h5>Clicking on ‘Continue’ will not deduct any money</h5>
             <div id="button">

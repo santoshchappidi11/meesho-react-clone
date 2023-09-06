@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./EditProduct.css";
 import { toast } from "react-hot-toast";
-import { useParams } from "react-router-dom";
-import { AuthContexts } from "../Context/AuthContext";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../../ApiConfig/index";
+// import { AuthContexts } from "../Context/AuthContext";
 
 const EditProduct = () => {
   const { editProdId } = useParams();
-  const { state, contextProducts } = useContext(AuthContexts);
-  const [productsContext, setProductsContext] = useState([]);
+  const navigateTo = useNavigate();
+  // const { state, contextProducts } = useContext(AuthContexts);
+  // const [productsContext, setProductsContext] = useState([]);
   const [editProductData, setEditProductData] = useState({
     name: "",
     image: "",
@@ -19,26 +21,31 @@ const EditProduct = () => {
     setEditProductData({ ...editProductData, [e.target.name]: e.target.value });
   };
 
-  // useEffect(() => {
-  //   if (state.products?.length) {
-  //     const newProduct = state?.products?.find(
-  //       (prod) => prod.id == singleProduct.id
-  //     );
-  //     setEditProductData(newProduct);
-  //   } else {
-  //     setEditProductData({});
-  //   }
-  // }, [state, singleProduct]);
-
   useEffect(() => {
-    if (state?.currentUser) {
-      setProductsContext(state?.products);
-    } else {
-      setProductsContext([]);
-    }
-  }, [state]);
+    const getEditProductData = async () => {
+      try {
+        const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+        const response = await api.post("/get-editproduct-data", {
+          token,
+          productId: editProdId,
+        });
 
-  const handleEditProductSubmit = (e) => {
+        if (response?.data?.success) {
+          setEditProductData(response?.data?.product);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+
+    if (editProdId) {
+      getEditProductData();
+    }
+  }, [editProdId]);
+
+  const handleEditProductSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -47,6 +54,23 @@ const EditProduct = () => {
       editProductData.price &&
       editProductData.category
     ) {
+      try {
+        const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+        const response = await api.patch("/update-your-product", {
+          editProductData,
+          token,
+          productId: editProdId,
+        });
+
+        if (response.data.success) {
+          toast.success(response.data.message);
+          navigateTo(`/${response?.data?.product?.category}`);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     } else {
       toast.error("Please fill all the fields!");
     }
@@ -91,17 +115,14 @@ const EditProduct = () => {
                 value={editProductData.category}
                 onChange={handleChangeValues}
               >
-                <option>Women Ethnic</option>
-                <option>Women Western</option>
+                <option>Women-Ethnic</option>
+                <option>Women-Western</option>
                 <option>Mens</option>
                 <option>Kids</option>
                 <option>Home&Kitchen</option>
-                <option>Beauty</option>
-                <option>Health</option>
-                <option>Jewellery</option>
-                <option>Accessories</option>
-                <option>Bags</option>
-                <option>Footwear</option>
+                <option>Beauty&Health</option>
+                <option>Jewellery&Accessories</option>
+                <option>Bags&Footwear</option>
                 <option>Electronics</option>
               </select>
             </div>

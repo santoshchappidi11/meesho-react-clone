@@ -101,18 +101,18 @@ const Navbar = () => {
             <p onClick={() => naviagateTo("/kids")}>Kids</p>
           </span>
           <span>
-            <p onClick={() => naviagateTo("/home-kitchen")}>Home & Kitchen</p>
+            <p onClick={() => naviagateTo("/home&kitchen")}>Home & Kitchen</p>
           </span>
           <span>
-            <p onClick={() => naviagateTo("/beauty-health")}>Beauty & Health</p>
+            <p onClick={() => naviagateTo("/beauty&health")}>Beauty & Health</p>
           </span>
           <span>
-            <p onClick={() => naviagateTo("/jewellery-accessories")}>
+            <p onClick={() => naviagateTo("/jewellery&accessories")}>
               Jewellery & Accessories
             </p>
           </span>
           <span>
-            <p onClick={() => naviagateTo("/bags-footwear")}>Bags & Footwear</p>
+            <p onClick={() => naviagateTo("/bags&footwear")}>Bags & Footwear</p>
           </span>
           <span>
             <p onClick={() => naviagateTo("/electronics")}>Electronics</p>

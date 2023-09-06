@@ -2,20 +2,41 @@ import React, { useContext, useEffect, useState } from "react";
 import "./WomenWestern.css";
 import { AuthContexts } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import api from "../../ApiConfig";
+import { toast } from "react-hot-toast";
 
 const WomenWestern = () => {
   const { state } = useContext(AuthContexts);
   const [allProducts, setAllProducts] = useState([]);
+  const [womenWesternProdData, setWomenWesternProdData] = useState([]);
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    if (state?.products?.length) {
-      const newProducts = state?.products?.filter(
-        (prod) => prod.category == "Women"
+    const getAllProducts = async () => {
+      try {
+        const response = await api.get("/all-products");
+        if (response.data.success) {
+          setAllProducts(response.data.products);
+        } else {
+          setAllProducts([]);
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+
+    getAllProducts();
+  }, []);
+
+  useEffect(() => {
+    if (allProducts?.length) {
+      const newProducts = allProducts?.filter(
+        (prod) => prod.category == "Women-Western"
       );
-      setAllProducts(newProducts);
+      setWomenWesternProdData(newProducts);
     }
-  }, [state]);
+  }, [allProducts]);
 
   return (
     <div id="products">
@@ -137,12 +158,12 @@ const WomenWestern = () => {
 
         <div id="right">
           <div id="all-products">
-            {allProducts?.length ? (
-              allProducts.map((prod) => (
+            {womenWesternProdData?.length ? (
+              womenWesternProdData.map((prod) => (
                 <div
                   class="product"
-                  key={prod.id}
-                  onClick={() => navigateTo(`/single-product/${prod.id}`)}
+                  key={prod._id}
+                  onClick={() => navigateTo(`/single-product/${prod._id}`)}
                 >
                   <div class="image">
                     <img src={prod.image} alt="product" />

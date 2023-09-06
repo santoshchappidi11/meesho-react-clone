@@ -85,7 +85,7 @@
   border: none;
   background: none;
   background-color: #9f2089;
-  border: 1px solid #9f2089;
+  /* border: 1px solid #9f2089; */
   font-size: 16px;
   font-weight: 500;
   color: white;

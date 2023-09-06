@@ -53,7 +53,40 @@ const SingleProduct = () => {
     }
   }, [state]);
 
-  const addToCart = (productId) => {};
+  const deleteYourProduct = async (productId) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+      const response = await api.post("/delete-your-product", {
+        token,
+        productId,
+      });
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        navigateTo(`/${response?.data?.product?.category}`);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const addToCart = async (productId) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+
+      const response = await api.post("/add-to-cart", { token, productId });
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <div id="single-product-body">
@@ -78,20 +111,39 @@ const SingleProduct = () => {
           </div>
           <div id="buttons">
             {isShowEditBtn && (
-              <div class="button">
-                <button
-                  onClick={() =>
-                    navigateTo(`/edit-product/${singleProduct._id}`)
-                  }
-                >
-                  <i class="fa-regular fa-pen-to-square fa-xl"></i>Edit Product
-                </button>
-              </div>
+              <>
+                <div class="button">
+                  <button
+                    onClick={() =>
+                      navigateTo(`/edit-product/${singleProduct._id}`)
+                    }
+                  >
+                    <i class="fa-regular fa-pen-to-square fa-xl"></i>Edit
+                    Product
+                  </button>
+                </div>
+                <div class="button">
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      color: "#9f2089",
+                      border: "2px solid #9f2089",
+                    }}
+                    onClick={() => deleteYourProduct(singleProduct._id)}
+                  >
+                    <i class="fa-solid fa-trash fa-lg"></i>Delete Product
+                  </button>
+                </div>
+              </>
             )}
             {!isShowEditBtn && (
               <div class="button">
                 <button
-                  style={{ backgroundColor: "white", color: "#9f2089" }}
+                  style={{
+                    backgroundColor: "white",
+                    color: "#9f2089",
+                    border: "2px solid #9f2089",
+                  }}
                   onClick={() => addToCart(singleProduct._id)}
                 >
                   <i class="fa-solid fa-cart-shopping fa-lg"></i>Add to Cart
