@@ -24,8 +24,6 @@ const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, intialState);
 
   const Login = (userData) => {
-    localStorage.setItem("MeeshoUserToken", JSON.stringify(userData.token));
-
     dispatch({
       type: "LOGIN",
       payload: userData.user,

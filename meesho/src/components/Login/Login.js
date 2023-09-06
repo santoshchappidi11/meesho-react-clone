@@ -30,6 +30,10 @@ const Login = () => {
           userData,
         });
         if (response.data.success) {
+          localStorage.setItem(
+            "MeeshoUserToken",
+            JSON.stringify(response.data.token)
+          );
           Login(response.data);
           toast.success(response.data.message);
           setUserData({ email: "", password: "" });

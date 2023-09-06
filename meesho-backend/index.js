@@ -6,6 +6,7 @@ import {
   Login,
   Register,
   getCurrentUser,
+  updateUserDetails,
 } from "./Controllers/User.controller.js";
 import {
   addComments,
@@ -59,6 +60,7 @@ app.post("/login", Login);
 app.post("/get-current-user", getCurrentUser);
 app.get("/all-products", allProducts);
 app.post("/get-singleproduct-data", getSingleProduct);
+app.post("/update-user-details", updateUserDetails);
 
 // seller
 app.post("/add-product", checkSeller, addProduct);
