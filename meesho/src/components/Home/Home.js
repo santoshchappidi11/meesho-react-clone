@@ -7,7 +7,7 @@ import sec3 from "./../../images/sec-3.JPG";
 import sec4 from "./../../images/sec-4.JPG";
 import sec5 from "./../../images/sec-5.JPG";
 import sec6 from "./../../images/sec-6.JPG";
-import { AuthContexts } from "../Context/AuthContext";
+// import { AuthContexts } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import api from "../../ApiConfig/index";
