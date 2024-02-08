@@ -19,6 +19,8 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Profile from "./components/Profile/Profile";
 import Cart from "./components/Cart/Cart";
+import PaymentSuccess from "./components/PaymentPages/PaymentSuccess";
+import PaymentFail from "./components/PaymentPages/PaymentFail";
 
 function App() {
   return (
@@ -42,10 +44,20 @@ function App() {
         />
         <Route exact path="/bags&footwear" element={<BagsFootwear />} />
         <Route exact path="/electronics" element={<Electronics />} />
-        <Route exact path="/single-product/:singleProdId" element={<SingleProduct />} />
+        <Route
+          exact
+          path="/single-product/:singleProdId"
+          element={<SingleProduct />}
+        />
         <Route exact path="/add-product" element={<AddProduct />} />
-        <Route exact path="/edit-product/:editProdId" element={<EditProduct />} />
+        <Route
+          exact
+          path="/edit-product/:editProdId"
+          element={<EditProduct />}
+        />
         <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/payment-success" element={<PaymentSuccess />} />
+        <Route exact path="/payment-fail" element={<PaymentFail />} />
       </Routes>
       <Footer />
     </div>

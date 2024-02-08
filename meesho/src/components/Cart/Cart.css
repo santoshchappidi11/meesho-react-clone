@@ -264,3 +264,48 @@
   font-size: 25px;
   color: rgb(77, 77, 77);
 }
+
+#quantity-container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 15%;
+  margin: 5px 0 0 0;
+  padding: 1px;
+  border-radius: 5px;
+  border: 1px solid rgb(183, 183, 183);;
+}
+
+#quantity-container .fa-plus, .fa-minus{
+  cursor: pointer;
+}
+
+#quantity-container span{
+  font-size: 18px;
+}
+
+#cart-loading{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#cart-loading h3{
+  font-size: 25px;
+  color:  rgb(159, 32, 137);
+}
+
+#cart-prod-loading{
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#cart-prod-loading  h3{
+  font-size: 25px;
+  color:  rgb(159, 32, 137);
+}

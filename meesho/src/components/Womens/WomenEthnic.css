@@ -250,3 +250,27 @@
   .fa-star {
   font-size: 10px;
 }
+
+
+#women-ethnic-loading{
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#women-ethnic-loading h3{
+  font-size: 25px;
+  color:  rgb(159, 32, 137);
+}
+
+#no-prod-msg{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:  rgb(159, 32, 137);
+  font-size: 20px;
+  /* border: 1px solid black; */
+}

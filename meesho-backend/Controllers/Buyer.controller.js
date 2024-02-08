@@ -1,6 +1,10 @@
 import jwt from "jsonwebtoken";
 import UserModel from "../Models/User.model.js";
 import ProductModel from "../Models/Product.model.js";
+import Stripe from "stripe";
+const stripe = new Stripe(
+  "sk_test_51Oc4ztSHIBIzSUXgEAyLrUH9f5tEuEyHsvSL9PtVA9mVDArtIjg0kZx2I3Qg8H0qapLqBQBd7Axvh8ARGOPxO9I0008NzzwZIg"
+);
 
 export const addToCart = async (req, res) => {
   try {
@@ -138,7 +142,7 @@ export const removeCartProduct = async (req, res) => {
 
 export const removeAllCartProducts = async (req, res) => {
   try {
-    const { token } = req.body;
+    const { token, products } = req.body;
 
     if (!token)
       return res
@@ -156,14 +160,48 @@ export const removeAllCartProducts = async (req, res) => {
 
     const user = await UserModel.findById(userId);
 
+    console.log(products, "prod");
+
     if (user) {
-      user.cart = [];
-      await user.save();
-      return res.status(200).json({
-        success: true,
-        message: "Thank you for shopping! Your products will deliver soon...",
+      const lineItems = products.map((product) => ({
+        price_data: {
+          currency: "inr",
+          product_data: {
+            name: product?.name,
+            images: [product?.image],
+          },
+          unit_amount: product?.price * 100,
+        },
+        quantity: product?.qnty ? product?.qnty : 1,
+      }));
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: "payment",
+        line_items: lineItems,
+        success_url: "http://localhost:3000/payment-success",
+        cancel_url: "http://localhost:3000/payment-fail",
+        billing_address_collection: "required",
       });
+
+      if (session) {
+        user.cart = [];
+        await user.save();
+        return res.status(200).json({
+          success: true,
+          id: session.id,
+          paymentStatus: session.payment_status,
+        });
+      }
     }
+    // if (user) {
+    //   user.cart = [];
+    //   await user.save();
+    //   return res.status(200).json({
+    //     success: true,
+    //     message: "Thank you for shopping! Your products will deliver soon...",
+    //   });
+    // }
     return res.status(404).json({ success: false, message: "No user found!" });
   } catch (error) {
     return res.status(500).json({ success: false, message: error });

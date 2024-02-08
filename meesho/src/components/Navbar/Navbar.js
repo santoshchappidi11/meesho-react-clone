@@ -3,6 +3,7 @@ import "./Navbar.css";
 import logo from "./../../images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContexts } from "../Context/AuthContext";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { state, Logout } = useContext(AuthContexts);
@@ -10,6 +11,12 @@ const Navbar = () => {
   const [isShowSidePopup, setIsShowSidePopup] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isSeller, setIsSeller] = useState(false);
+
+  const handleUserLogout = () => {
+    Logout();
+    toast.success("Logout Successfull!");
+    naviagateTo("/login");
+  };
 
   useEffect(() => {
     if (state?.currentUser?.email) {
@@ -162,7 +169,7 @@ const Navbar = () => {
             )}
             {currentUser?.name && (
               <div id="button">
-                <button onClick={Logout}>LOGOUT</button>
+                <button onClick={handleUserLogout}>LOGOUT</button>
               </div>
             )}
           </div>

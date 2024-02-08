@@ -573,13 +573,17 @@ span {
   object-fit: cover;
 }
 
-#right > #sec-6 > #helpful {
+#right > #sec-6 > .helpful {
   margin: 15px 0 10px 15px;
   color: rgb(68, 68, 68);
   /* border: 1px solid black; */
 }
 
-#right > #sec-6 > #helpful > span {
+#right > #sec-6 > .helpful > .fa-thumbs-up{
+  margin: 0 5px;
+}
+
+#right > #sec-6 > .helpful > span {
   font-size: 16px;
 }
 
@@ -668,13 +672,17 @@ span {
   object-fit: cover;
 }
 
-#right > #sec-7 > #helpful {
-  margin: 15px 0 10px 15px;
+#right > #sec-7 > .helpful {
+  margin: 15px 0 10px 10px;
   color: rgb(68, 68, 68);
   /* border: 1px solid black; */
 }
 
-#right > #sec-7 > #helpful > span {
+#right > #sec-7 > .helpful > .fa-thumbs-up{
+  margin: 0 5px;
+}
+
+#right > #sec-7 > .helpful > span {
   font-size: 16px;
 }
 
@@ -683,7 +691,6 @@ span {
   border: 1px solid rgb(214, 214, 214);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-
   /* border: 1px solid black; */
 }
 
@@ -699,4 +706,17 @@ span {
 
 #right > #sec-8 > div > h4 {
   font-weight: 600;
+}
+
+#single-prod-loading{
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#single-prod-loading h3{
+  font-size: 25px;
+  color:  rgb(159, 32, 137);
 }
