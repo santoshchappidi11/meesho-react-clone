@@ -2,9 +2,7 @@ import jwt from "jsonwebtoken";
 import UserModel from "../Models/User.model.js";
 import ProductModel from "../Models/Product.model.js";
 import Stripe from "stripe";
-const stripe = new Stripe(
-  "sk_test_51Oc4ztSHIBIzSUXgEAyLrUH9f5tEuEyHsvSL9PtVA9mVDArtIjg0kZx2I3Qg8H0qapLqBQBd7Axvh8ARGOPxO9I0008NzzwZIg"
-);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const addToCart = async (req, res) => {
   try {
