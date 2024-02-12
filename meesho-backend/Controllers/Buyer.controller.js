@@ -178,7 +178,7 @@ export const removeAllCartProducts = async (req, res) => {
       const session = await stripe?.checkout?.sessions?.create({
         payment_method_types: ["card"],
         mode: "payment",
-        line_items: lineItems,
+        line_items: lineItems && lineItems,
         success_url: "payment-success",
         cancel_url: "payment-fail",
         billing_address_collection: "required",
