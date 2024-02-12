@@ -179,8 +179,8 @@ export const removeAllCartProducts = async (req, res) => {
         payment_method_types: ["card"],
         mode: "payment",
         line_items: lineItems,
-        success_url: "/payment-success",
-        cancel_url: "/payment-fail",
+        success_url: "payment-success",
+        cancel_url: "payment-fail",
         billing_address_collection: "required",
       });
 
