@@ -100,21 +100,21 @@ const Cart = () => {
         });
 
         if (response.data.success) {
-          const session = response.data.id;
+          const session = response?.data?.id;
 
-          const result = await stripe.redirectToCheckout({
+          const result = await stripe?.redirectToCheckout({
             sessionId: session,
           });
 
-          if (result.error) {
-            console.log(result.error);
+          if (result?.error) {
+            console.log(result?.error);
             toast.error("Failed to intiate payment!");
           } else {
             setCartProducts([]);
           }
         }
       } catch (error) {
-        toast.error(error.response.data.message);
+        console.log(error?.response?.data?.message);
       }
 
       // try {

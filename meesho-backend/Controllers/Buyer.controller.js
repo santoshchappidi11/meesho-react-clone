@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import UserModel from "../Models/User.model.js";
 import ProductModel from "../Models/Product.model.js";
 import Stripe from "stripe";
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const addToCart = async (req, res) => {
   try {
@@ -140,6 +139,9 @@ export const removeCartProduct = async (req, res) => {
 
 export const removeAllCartProducts = async (req, res) => {
   try {
+    const SECRET_KEY = process?.env?.STRIPE_SECRET_KEY;
+    const stripe = new Stripe(SECRET_KEY);
+
     const { token, products } = req.body;
 
     if (!token)
@@ -158,7 +160,7 @@ export const removeAllCartProducts = async (req, res) => {
 
     const user = await UserModel.findById(userId);
 
-    console.log(products, "prod");
+    // console.log(products, "prod");
 
     if (user) {
       const lineItems = products.map((product) => ({
@@ -173,7 +175,7 @@ export const removeAllCartProducts = async (req, res) => {
         quantity: product?.qnty ? product?.qnty : 1,
       }));
 
-      const session = await stripe.checkout.sessions.create({
+      const session = await stripe?.checkout?.sessions?.create({
         payment_method_types: ["card"],
         mode: "payment",
         line_items: lineItems,
