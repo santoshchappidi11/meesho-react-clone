@@ -137,8 +137,7 @@
   width: 74%;
   /* border: 1px solid black; */
 }
-
-#products > #filter-products > #right > #all-products {
+ #all-products {
   height: auto;
   width: 100%;
   display: flex;
@@ -147,18 +146,16 @@
   flex-wrap: wrap;
   /* border: 2px solid green; */
 }
-
-#products > #filter-products > #right > #all-products > .product {
+ #all-products > .product {
   height: auto;
   padding-bottom: 20px;
   width: 23%;
   border-radius: 5px;
   margin: 0 19px 20px 0;
-  cursor: pointer;
-  border: 1px solid rgb(212, 212, 212);
+  /* cursor: pointer; */
+  /* border: 1px solid rgb(212, 212, 212); */
 }
-
-#products > #filter-products > #right > #all-products > .product > .image {
+ #all-products > .product > .image {
   height: 220px;
   width: 100%;
   border-top-left-radius: 5px;
@@ -177,26 +174,22 @@
   width: 100%;
   object-fit: cover;
 }
-
-#products > #filter-products > #right > #all-products > .product > h5 {
+ #all-products > .product > h5 {
   padding: 10px 10px;
   font-size: 15px;
   font-weight: 500;
   color: rgb(153, 153, 153);
 }
-
-#products > #filter-products > #right > #all-products > .product > h2 {
+ #all-products > .product > h2 {
   color: rgb(45, 45, 45);
   padding: 0 10px;
 }
-
-#products > #filter-products > #right > #all-products > .product > h2 > span {
+ #all-products > .product > h2 > span {
   font-size: 13px;
   font-weight: 500;
   color: rgb(107, 107, 107);
 }
-
-#products > #filter-products > #right > #all-products > .product > p {
+ #all-products > .product > p {
   font-size: 13px;
   margin: 10px 0 15px 10px;
   width: 100px;
@@ -205,8 +198,7 @@
   background-color: #ededff;
   /* border: 1px solid black; */
 }
-
-#products > #filter-products > #right > #all-products > .product > .ratings {
+ #all-products > .product > .ratings {
   display: flex;
   align-items: center;
   padding: 0 10px;

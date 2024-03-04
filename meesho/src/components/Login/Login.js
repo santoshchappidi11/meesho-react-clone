@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { AuthContexts } from "../Context/AuthContext";
 import api from "../../ApiConfig/index";
+import formBanner from "../../images/form-banner.avif";
 // import axios from "axios";
 
 const Login = () => {
@@ -53,10 +54,7 @@ const Login = () => {
     <div id="login-body">
       <div id="login">
         <div id="image">
-          <img
-            src="https://images.meesho.com/images/marketing/1661417516766.webp"
-            alt="login"
-          />
+          <img src={formBanner} alt="login" />
         </div>
         <div id="login-main">
           <form onSubmit={handleLoginSubmit}>

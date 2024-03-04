@@ -3,6 +3,7 @@ import "./EditProduct.css";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../ApiConfig/index";
+import formBanner from "../../images/form-banner-4.avif";
 // import { AuthContexts } from "../Context/AuthContext";
 
 const EditProduct = () => {
@@ -80,10 +81,7 @@ const EditProduct = () => {
     <div id="edit-product-body">
       <div id="edit-product">
         <div id="image">
-          <img
-            src="https://images.meesho.com/images/marketing/1661417516766.webp"
-            alt="edit-product"
-          />
+          <img src={formBanner} alt="edit-product" />
         </div>
         <div id="edit-product-main">
           <form onSubmit={handleEditProductSubmit}>

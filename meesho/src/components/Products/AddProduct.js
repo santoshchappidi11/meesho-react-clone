@@ -3,6 +3,7 @@ import "./AddProduct.css";
 import { toast } from "react-hot-toast";
 import api from "../../ApiConfig/index";
 import { useNavigate } from "react-router-dom";
+import formBanner from "../../images/form-banner-3.avif";
 // import { AuthContexts } from "../Context/AuthContext";
 // import { v4 as uuidv4 } from "uuid";
 
@@ -57,10 +58,7 @@ const AddProduct = () => {
     <div id="add-product-body">
       <div id="add-product">
         <div id="image">
-          <img
-            src="https://images.meesho.com/images/marketing/1661417516766.webp"
-            alt="add-product"
-          />
+          <img src={formBanner} alt="add-product" />
         </div>
         <div id="add-product-main">
           <form onSubmit={handleSubmitAddProduct}>

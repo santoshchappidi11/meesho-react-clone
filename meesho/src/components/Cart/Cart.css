@@ -1,11 +1,17 @@
+
+#main-cart{
+  margin: 120px 0 0 0;
+  background-color: #f9ffff;
+}
+
 #cart-body {
   height: auto;
   width: 70%;
   margin: auto;
-  margin-top: 155px;
   padding: 0 0 50px 0;
   display: flex;
   justify-content: space-evenly;
+  padding: 80px 0;
   /* border: 1px solid black; */
 }
 
@@ -66,6 +72,7 @@
   width: 92%;
   margin-top: 15px;
   border-radius: 4px;
+  background-color: white;
   border: 1px solid rgb(206, 206, 206);
 }
 

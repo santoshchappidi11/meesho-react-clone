@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { AuthContexts } from "../Context/AuthContext";
 import api from "../../ApiConfig/index";
+import formBanner from "../../images/form-banner-2.avif";
 // import axios from "axios";
 
 const Register = () => {
@@ -71,10 +72,7 @@ const Register = () => {
     <div id="register-body">
       <div id="register">
         <div id="image">
-          <img
-            src="https://images.meesho.com/images/marketing/1661417516766.webp"
-            alt="register"
-          />
+          <img src={formBanner} alt="register" />
         </div>
         <div id="register-main">
           <form onSubmit={handleRegisterSubmit}>

@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 0 0 0;
-  background-color: #f8f8ff;
+  background-color: rgb(255, 255, 255);
   padding: 25px 15px;
   /* border: 1px solid black; */
 }
@@ -50,7 +50,7 @@
 #footer > #footer-sec-1 > #stores > #play-store,
 #apple-play {
   height: 100%;
-  width: 45%;
+  width: 200px;
   display: flex;
   justify-content: space-around;
   align-items: center;

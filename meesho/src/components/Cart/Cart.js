@@ -136,7 +136,7 @@ const Cart = () => {
   };
 
   return (
-    <>
+    <div id="main-cart">
       {isUserLoggedIn && (
         <div id="cart-body">
           {isLoading ? (
@@ -246,7 +246,7 @@ const Cart = () => {
             </div>
           </>
         ))}
-    </>
+    </div>
   );
 };
 
