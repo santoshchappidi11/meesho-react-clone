@@ -64,7 +64,7 @@
 }
 
 #login-body > #login > #login-main > form > #fields > input:hover {
-  border-bottom: 1px solid #9f2089;
+  border-bottom: 1px solid #09a492;
 }
 
 #login-body > #login > #login-main > form > #fields > input::placeholder {
@@ -84,7 +84,7 @@
   background-color: none;
   border: none;
   border-radius: 5px;
-  background-color: #9f2089;
+  background-color: #09a492;
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -105,7 +105,7 @@
 
 #login-body > #login > #login-main > #sign-in > span > b {
   /* text-decoration: none; */
-  color: #9f2089;
+  color: #09a492;
   font-weight: bold;
   cursor: pointer;
 }
@@ -125,5 +125,5 @@
 }
 
 #login-body > #login > #login-main > #policy > span > b {
-  color: #9f2089;
+  color: #09a492;
 }

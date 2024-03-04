@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div id="footer">
       <div id="footer-sec-1">
-        <h2>Shop Non-Stop on Meesho</h2>
+        <h2>Shop Non-Stop on U SHOP</h2>
         <p>
           Trusted by more than 1 Crore Indians Cash on Delivery | Free Delivery
         </p>
@@ -34,7 +34,7 @@ const Footer = () => {
       <div id="footer-sec-3">
         <div>
           <h4>Legal and Policies</h4>
-          <h4>Meesho Tech Blog</h4>
+          <h4>U SHOP Tech Blog</h4>
           <h4>Notices and Returns</h4>
         </div>
       </div>
@@ -54,15 +54,15 @@ const Footer = () => {
         <div>
           <h4>Contact Us</h4>
           <div>
-            <p>Fashnear Technologies Private Limited</p>
-            <p>CIN: U74900KA2015PTC082263</p>
+            <p>U Shop Technologies Private Limited</p>
+            <p>CIN: HUGFDSU1546832365</p>
             <p>
-              06-105-B, 06-102, (138 Wu) Vaishnavi Signature, No. 78/9, Outer
-              Ring Road, Bellandur, Varthur Hobli, Bengaluru-560103, Karnataka,
-              India
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              rhoncus maximus bibendum. Suspendisse velit velit, vehicula ac
+              velit non, pharetra maximus elit.
             </p>
-            <p>E-mail address: query@meesho.com</p>
-            <p>© 2015-2022 Meesho.com</p>
+            <p>E-mail address: query@ushop.com</p>
+            <p>© 2024-2025 USHOP.com</p>
           </div>
         </div>
       </div>

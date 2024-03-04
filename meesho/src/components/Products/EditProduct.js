@@ -132,8 +132,8 @@ const EditProduct = () => {
           </form>
           <div id="policy">
             <span>
-              By continuing, you agree to Meesho’s
-              <b>Terms & Conditions</b> and <b>Privacy Policy</b>
+              By continuing, you agree to U SHOP
+              <b> Terms & Conditions</b> and <b>Privacy Policy</b>
             </span>
           </div>
         </div>

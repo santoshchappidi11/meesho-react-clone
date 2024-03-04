@@ -48,9 +48,18 @@ const Navbar = () => {
         <div id="navbar">
           <div id="left">
             <div id="logo">
-              <p onClick={() => naviagateTo("/")}>
-                <img src={logo} alt="logo" />
-              </p>
+              <h2 onClick={() => naviagateTo("/")} id="main-logo" class="fancy">
+                {/* <img src={logo} alt="logo" /> */}
+                {/* <h2 onClick={() => naviagateTo("/")}>U SHOP</h2> */}
+                {/* <section className="wrapper">
+                  <div class="top">U SHOP</div>
+                  <div class="bottom" aria-hidden="true">
+                    U SHOP
+                  </div>
+                </section> */}
+                U SHOP
+              </h2>
+              <aside></aside>
             </div>
             <div id="search">
               <i class="fa-solid fa-magnifying-glass"></i>

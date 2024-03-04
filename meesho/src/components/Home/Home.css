@@ -4,67 +4,31 @@
   /* border: 1px solid black; */
 }
 
-#body > .section {
-  height: 360px;
-  width: 82%;
-  margin: auto;
-  margin-top: 50px;
+#all-sections{
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 150px 0 0 0;
+  /* border: 1px solid red; */
+}
+
+.section {
+  height: 380px;
+  width: 85%;
+  margin: 20px 0;
   z-index: 0;
 }
 
-#body > #section-1 {
-  margin-top: 170px;
-}
-
-#body > .section > img {
+.section img{
   height: 100%;
   width: 100%;
-  border-radius: 5px;
-  /* filter: contrast(10%); */
-}
-
-#body > #sub-sec-1 {
-  height: 50px;
-}
-
-#body > #section-2 {
-  height: 560px;
-  width: 82%;
-  margin: auto;
-  margin-top: 50px;
+  object-fit: contain;
   /* border: 1px solid black; */
 }
 
-#body > #section-3 {
-  height: 555px;
-  width: 82%;
-  margin: auto;
-  margin-top: 50px;
-  /* border: 1px solid black; */
-}
-
-#body > #section-4 {
-  height: 560px;
-  width: 82%;
-  margin: auto;
-  margin-top: 50px;
-  /* border: 1px solid black; */
-}
-
-#body > #section-5 {
-  height: 535px;
-  width: 82%;
-  margin: auto;
-  margin-top: 50px;
-  /* border: 1px solid black; */
-}
-#body > #section-6 {
-  height: 295px !important;
-  width: 82%;
-  margin: auto;
-  margin-top: 50px;
-  /* border: 1px solid black; */
-}
 
 #products {
   height: auto;
@@ -312,5 +276,5 @@
 
 #home-loading h3{
   font-size: 25px;
-  color:  rgb(159, 32, 137);
+  color:  #09a492;
 }

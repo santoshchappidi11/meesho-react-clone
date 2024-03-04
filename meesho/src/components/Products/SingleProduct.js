@@ -142,8 +142,8 @@ const SingleProduct = () => {
                         <button
                           style={{
                             backgroundColor: "white",
-                            color: "#9f2089",
-                            border: "2px solid #9f2089",
+                            color: "#09a492",
+                            border: "2px solid #09a492",
                           }}
                           onClick={() => deleteYourProduct(singleProduct?._id)}
                         >
@@ -157,8 +157,8 @@ const SingleProduct = () => {
                       <button
                         style={{
                           backgroundColor: "white",
-                          color: "#9f2089",
-                          border: "2px solid #9f2089",
+                          color: "#09a492",
+                          border: "2px solid #09a492",
                         }}
                         onClick={() => addToCart(singleProduct?._id)}
                       >

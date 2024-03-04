@@ -247,7 +247,7 @@
   border: none;
   background: none;
   border-radius: 5px;
-  background-color: #9f2089;
+  background-color: #09a492;
   color: white;
   font-size: 16px;
   font-weight: 700;
@@ -329,7 +329,7 @@
 }
 
 #screen > #edit-profile > form > input:hover {
-  border-bottom: 1px solid #9f2089;
+  border-bottom: 1px solid #09a492;
 }
 
 #screen > #edit-profile > form > input::placeholder {
@@ -347,6 +347,6 @@
   margin: 10px 0 0 0;
   cursor: pointer;
   border-radius: 5px;
-  background-color: #9f2089;
+  background-color: #09a492;
   color: white;
 }

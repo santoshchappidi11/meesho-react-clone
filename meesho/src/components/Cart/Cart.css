@@ -140,7 +140,7 @@
   font-size: 17px;
   font-weight: 500;
   margin: 10px 18px;
-  color: rgb(159, 32, 137);
+  color: #09a492;
 }
 
 #cart-body > #left > #cart-products > .main-item > .sold {
@@ -223,7 +223,7 @@
   border-radius: 5px;
   color: white;
   cursor: pointer;
-  background-color: rgb(159, 32, 137);
+  background-color: #09a492;
 }
 
 #cart-body > #right > #right-img {
@@ -294,7 +294,7 @@
 
 #cart-loading h3{
   font-size: 25px;
-  color:  rgb(159, 32, 137);
+  color:  #09a492;
 }
 
 #cart-prod-loading{
@@ -307,5 +307,5 @@
 
 #cart-prod-loading  h3{
   font-size: 25px;
-  color:  rgb(159, 32, 137);
+  color:  #09a492;
 }

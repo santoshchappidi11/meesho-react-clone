@@ -70,7 +70,7 @@
   > form
   > #fields
   > input:hover {
-  border-bottom: 1px solid #9f2089;
+  border-bottom: 1px solid #09a492;
 }
 
 #add-product-body
@@ -101,7 +101,7 @@
   > form
   > #fields
   > select:hover {
-  border-bottom: 1px solid #9f2089;
+  border-bottom: 1px solid #09a492;
 }
 
 #add-product-body
@@ -126,7 +126,7 @@
   background-color: none;
   border: none;
   border-radius: 5px;
-  background-color: #9f2089;
+  background-color: #09a492;
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -147,7 +147,7 @@
 
 #add-product-body > #add-product > #add-product-main > #sign-in > span > b {
   /* text-decoration: none; */
-  color: #9f2089;
+  color: #09a492;
   font-weight: bold;
 }
 
@@ -166,5 +166,5 @@
 }
 
 #add-product-body > #add-product > #add-product-main > #policy > span > b {
-  color: #9f2089;
+  color: #09a492;
 }

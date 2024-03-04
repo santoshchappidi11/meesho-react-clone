@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
-import sec1 from "./../../images/sec-1.JPG";
-import sec1sub from "./../../images/sec-1-sub.JPG";
-import sec2 from "./../../images/sec-2.JPG";
-import sec3 from "./../../images/sec-3.JPG";
-import sec4 from "./../../images/sec-4.JPG";
-import sec5 from "./../../images/sec-5.JPG";
-import sec6 from "./../../images/sec-6.JPG";
+import sec1 from "./../../images/sec-1.webp";
+import sec2 from "./../../images/sec-2.webp";
+import sec3 from "./../../images/sec-3.jpg";
+import subsec from "./../../images/sub-sec.JPG";
+
 // import { AuthContexts } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -52,26 +50,19 @@ const Home = () => {
       ) : (
         <>
           <div id="body">
-            <div id="section-1" class="section">
-              <img src={sec1} alt="section" />
-            </div>
-            <div id="sub-sec-1" class="section">
-              <img src={sec1sub} alt="section" />
-            </div>
-            <div id="section-2" class="section">
-              <img src={sec2} alt="section" />
-            </div>
-            <div id="section-3" class="section">
-              <img src={sec3} alt="section" />
-            </div>
-            <div id="section-4" class="section">
-              <img src={sec4} alt="section" />
-            </div>
-            <div id="section-5" class="section">
-              <img src={sec5} alt="section" />
-            </div>
-            <div id="section-6" class="section">
-              <img src={sec6} alt="section" />
+            <div id="all-sections">
+              <div id="section-1" class="section">
+                <img src={sec1} alt="section" />
+              </div>
+              <div id="section-2" class="section">
+                <img src={sec2} alt="section" />
+              </div>
+              <div id="section-3" class="section">
+                <img src={subsec} alt="section" />
+              </div>
+              <div id="section-3" class="section">
+                <img src={sec3} alt="section" />
+              </div>
             </div>
           </div>
 
