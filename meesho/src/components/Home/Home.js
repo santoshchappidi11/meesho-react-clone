@@ -13,8 +13,120 @@ import api from "../../ApiConfig/index";
 const Home = () => {
   // const { state } = useContext(AuthContexts);
   const [allProducts, setAllProducts] = useState([]);
+  const [alternateAllProducts, setAlternateAllProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [userGender, setUserGender] = useState("");
+  const [userPrice, setUserPrice] = useState("");
+  const [userRating, setUserRating] = useState("");
   const navigateTo = useNavigate();
+
+  console.log(allProducts, "products");
+
+  const handleGenderChnage = (e) => {
+    // if (e.target.value === "All") {
+    //   setAllProducts(alternateAllProducts);
+    // }
+    setUserGender(e.target.value);
+  };
+
+  const handlePriceChange = (e) => {
+    setUserPrice(e.target.value);
+    setAllProducts(alternateAllProducts);
+  };
+
+  const handleRatingChange = (e) => {
+    setUserRating(e.target.value);
+    setAllProducts(alternateAllProducts);
+  };
+
+  useEffect(() => {
+    if (allProducts && userGender) {
+      const newProducts = allProducts?.filter(
+        (prod) => prod?.category == userGender
+      );
+      // console.log(newProducts, "filtered prod");
+      if (newProducts?.length) {
+        setAllProducts(newProducts);
+      } else {
+        setAllProducts(alternateAllProducts);
+      }
+    }
+  }, [userGender, alternateAllProducts]);
+
+  useEffect(() => {
+    if (allProducts && userPrice) {
+      if (userGender) {
+        const genderProducts = allProducts?.filter(
+          (prod) => prod?.category == userGender
+        );
+
+        if (genderProducts?.length) {
+          const priceGenderProducts = genderProducts?.filter(
+            (prod) => prod?.price >= userPrice
+          );
+
+          if (priceGenderProducts?.length) {
+            setAllProducts(priceGenderProducts);
+          } else {
+            setAllProducts([]);
+          }
+        } else {
+          const priceProducts = allProducts?.filter(
+            (prod) => prod?.price >= userPrice
+          );
+
+          if (priceProducts?.length) {
+            setAllProducts(priceProducts);
+          } else {
+            setAllProducts(alternateAllProducts);
+          }
+        }
+      } else {
+        const newProducts = allProducts?.filter(
+          (prod) => prod?.price >= userPrice || prod?.category == userGender
+        );
+        if (newProducts?.length) {
+          setAllProducts(newProducts);
+        } else {
+          setAllProducts(alternateAllProducts);
+        }
+      }
+    }
+  }, [userPrice, alternateAllProducts, userGender]);
+
+  useEffect(() => {
+    if (allProducts && userRating) {
+      if (userGender) {
+        const genderProducts = allProducts?.filter(
+          (prod) => prod?.category == userGender
+        );
+
+        const priceGenderProducts = genderProducts?.filter(
+          (prod) => prod?.price >= userPrice
+        );
+
+        const priceGenderRatingProd = priceGenderProducts?.filter(
+          (prod) => prod?.rating >= userRating
+        );
+
+        if (priceGenderRatingProd?.length) {
+          setAllProducts(priceGenderRatingProd);
+        } else {
+          setAllProducts([]);
+        }
+      }
+    } else {
+      const priceProducts = allProducts?.filter(
+        (prod) => prod?.rating >= userRating
+      );
+
+      if (priceProducts?.length) {
+        setAllProducts(priceProducts);
+      } else {
+        setAllProducts([]);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -23,6 +135,7 @@ const Home = () => {
 
         if (response.data.success) {
           setAllProducts(response.data.products);
+          setAlternateAllProducts(response.data.products);
           setIsLoading(false);
         } else {
           setAllProducts([]);
@@ -79,7 +192,92 @@ const Home = () => {
                   <i class="fa-solid fa-angle-down"></i>
                 </div>
 
-                <div id="filter-main">
+                <div id="products-filter">
+                  <div className="filter-gender" onChange={handleGenderChnage}>
+                    <h3>Gender :</h3>
+                    <div>
+                      <input
+                        type="radio"
+                        value="All"
+                        id="all"
+                        name="gender"
+                        // checked={userGender === "All"}
+                      />
+                      <label htmlFor="all">All</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Mens"
+                        id="mens"
+                        name="gender"
+                        // checked={userGender === "Mens"}
+                      />
+                      <label htmlFor="mens">Mens</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Women"
+                        id="women"
+                        name="gender"
+                        // checked={userGender === "Women"}
+                      />
+                      <label htmlFor="women">Women</label>
+                    </div>
+                  </div>
+                  <div className="filter-price" onChange={handlePriceChange}>
+                    <h3>Price :</h3>
+                    <div>
+                      <input type="radio" value="500" id="500" name="price" />
+                      <label htmlFor="500"> &gt;= 500</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="1000" id="1000" name="price" />
+                      <label htmlFor="1000"> &gt;= 1000</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="20000"
+                        id="20000"
+                        name="price"
+                      />
+                      <label htmlFor="20000"> &gt;= 20000</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="30000"
+                        id="30000"
+                        name="price"
+                      />
+                      <label htmlFor="30000"> &gt;= 30000</label>
+                    </div>
+                  </div>
+
+                  <div className="filter-rating" onChange={handleRatingChange}>
+                    <h3>Ratings :</h3>
+                    <div>
+                      <input type="radio" value="2" id="2" name="ratings" />
+                      <label htmlFor="2"> &gt;= 2</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="3" id="3" name="ratings" />
+                      <label htmlFor="3"> &gt;= 3</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="4" id="4" name="ratings" />
+                      <label htmlFor="4"> &gt;= 4</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="5" id="5" name="ratings" />
+                      <label htmlFor="5"> &gt;= 5</label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <div id="filter-main">
                   <div id="filters">
                     <h4>FILTERS</h4>
                     <p>1000+ Products</p>
@@ -176,7 +374,7 @@ const Home = () => {
                     <h3>Bottom_Length</h3>
                     <i class="fa-solid fa-angle-down"></i>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div id="right">
