@@ -94,39 +94,39 @@ const Home = () => {
     }
   }, [userPrice, alternateAllProducts, userGender]);
 
-  useEffect(() => {
-    if (allProducts && userRating) {
-      if (userGender) {
-        const genderProducts = allProducts?.filter(
-          (prod) => prod?.category == userGender
-        );
+  // useEffect(() => {
+  //   if (allProducts && userRating) {
+  //     if (userGender) {
+  //       const genderProducts = allProducts?.filter(
+  //         (prod) => prod?.category == userGender
+  //       );
 
-        const priceGenderProducts = genderProducts?.filter(
-          (prod) => prod?.price >= userPrice
-        );
+  //       const priceGenderProducts = genderProducts?.filter(
+  //         (prod) => prod?.price >= userPrice
+  //       );
 
-        const priceGenderRatingProd = priceGenderProducts?.filter(
-          (prod) => prod?.rating >= userRating
-        );
+  //       const priceGenderRatingProd = priceGenderProducts?.filter(
+  //         (prod) => prod?.rating >= userRating
+  //       );
 
-        if (priceGenderRatingProd?.length) {
-          setAllProducts(priceGenderRatingProd);
-        } else {
-          setAllProducts([]);
-        }
-      }
-    } else {
-      const priceProducts = allProducts?.filter(
-        (prod) => prod?.rating >= userRating
-      );
+  //       if (priceGenderRatingProd?.length) {
+  //         setAllProducts(priceGenderRatingProd);
+  //       } else {
+  //         setAllProducts([]);
+  //       }
+  //     }
+  //   } else {
+  //     const priceProducts = allProducts?.filter(
+  //       (prod) => prod?.rating >= userRating
+  //     );
 
-      if (priceProducts?.length) {
-        setAllProducts(priceProducts);
-      } else {
-        setAllProducts([]);
-      }
-    }
-  }, []);
+  //     if (priceProducts?.length) {
+  //       setAllProducts(priceProducts);
+  //     } else {
+  //       setAllProducts([]);
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -398,7 +398,7 @@ const Home = () => {
                         <p>Free Delivery</p>
                         <div class="ratings">
                           <div class="rating">
-                            <h4>3.8</h4>
+                            <h4>{prod?.avgRating ? prod?.avgRating : "3.8"}</h4>
                             <i class="fa-solid fa-star"></i>
                           </div>
                           <h6>961 Reviews</h6>

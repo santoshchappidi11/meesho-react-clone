@@ -15,6 +15,7 @@ const AddProduct = () => {
     image: "",
     price: "",
     category: "Mens",
+    rating: "3.5",
   });
 
   const handleChangeValues = (e) => {
@@ -28,7 +29,8 @@ const AddProduct = () => {
       addProductData.name &&
       addProductData.image &&
       addProductData.price &&
-      addProductData.category
+      addProductData.category &&
+      addProductData.rating
     ) {
       try {
         const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
@@ -85,6 +87,23 @@ const AddProduct = () => {
                 value={addProductData.price}
                 onChange={handleChangeValues}
               />
+
+              <select
+                name="rating"
+                value={addProductData.rating}
+                onChange={handleChangeValues}
+              >
+                <option>1</option>
+                <option>1.5</option>
+                <option>2</option>
+                <option>2.5</option>
+                <option>3</option>
+                <option>3.5</option>
+                <option>4</option>
+                <option>4.5</option>
+                <option>5</option>
+              </select>
+
               <select
                 name="category"
                 value={addProductData.category}

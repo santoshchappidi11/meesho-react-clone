@@ -44,6 +44,11 @@ const productSchema = new Schema({
   comments: {
     type: [Object],
   },
+
+  avgRating: {
+    type: String,
+    default: "3.5",
+  },
 });
 
 export default mongoose.model("Product", productSchema);

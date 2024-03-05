@@ -16,6 +16,7 @@ const EditProduct = () => {
     image: "",
     price: "",
     category: "Men",
+    avgRating: "3.5",
   });
 
   const handleChangeValues = (e) => {
@@ -108,6 +109,23 @@ const EditProduct = () => {
                 value={editProductData.price}
                 onChange={handleChangeValues}
               />
+
+              <select
+                name="avgRating"
+                value={editProductData.avgRating}
+                onChange={handleChangeValues}
+              >
+                <option>1</option>
+                <option>1.5</option>
+                <option>2</option>
+                <option>2.5</option>
+                <option>3</option>
+                <option>3.5</option>
+                <option>4</option>
+                <option>4.5</option>
+                <option>5</option>
+              </select>
+
               <select
                 name="category"
                 value={editProductData.category}

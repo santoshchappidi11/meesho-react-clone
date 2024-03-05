@@ -190,7 +190,7 @@ const Mens = () => {
                         <p>Free Delivery</p>
                         <div class="ratings">
                           <div class="rating">
-                            <h4>3.8</h4>
+                            <h4>{prod?.avgRating ? prod?.avgRating : "3.8"}</h4>
                             <i class="fa-solid fa-star"></i>
                           </div>
                           <h6>961 Reviews</h6>

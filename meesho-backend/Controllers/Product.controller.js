@@ -4,7 +4,7 @@ import UserModel from "../Models/User.model.js";
 
 export const addProduct = async (req, res) => {
   try {
-    const { image, name, price, category } = req.body.addProductData;
+    const { image, name, price, category, rating } = req.body.addProductData;
     const { token } = req.body;
 
     if (!image || !name || !price || !category || !token)
@@ -27,6 +27,7 @@ export const addProduct = async (req, res) => {
       price,
       category,
       userId: userId,
+      avgRating: rating,
     });
     await product.save();
 
@@ -100,8 +101,8 @@ export const getYourProducts = async (req, res) => {
 
 export const updateYourProduct = async (req, res) => {
   try {
-    const { image, name, price, category } = req.body.editProductData;
-    const { productId, token } = req.body;
+    const { productId, token, image, name, price, category, avgRating } =
+      req.body;
 
     if (!token)
       return res
@@ -119,16 +120,20 @@ export const updateYourProduct = async (req, res) => {
 
     const updatedProduct = await ProductModel.findOneAndUpdate(
       { _id: productId, userId: userId },
-      { image, name, price, category },
+      { image, name, price, category, avgRating },
       { new: true }
     );
 
-    if (updatedProduct)
+    console.log(updatedProduct, "updates product");
+
+    if (updatedProduct) {
+      await updatedProduct.save();
       return res.status(200).json({
         success: true,
         product: updatedProduct,
         message: "Product updated successfully!",
       });
+    }
 
     return res.status(404).json({
       success: false,
