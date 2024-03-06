@@ -80,8 +80,8 @@ const Profile = () => {
             <div id="credits">
               <span>CREDITS</span>
               <p>Coupons</p>
-              <p>Meesho Credit</p>
-              <p>Meesho Cash</p>
+              <p>U-SHOP Credit</p>
+              <p>U-SHOP Cash</p>
             </div>
             <div id="account">
               <span>ACCOUNT</span>
@@ -89,7 +89,7 @@ const Profile = () => {
               <p>Saved Cards</p>
               <p>Saved VPA</p>
               <p>Address</p>
-              <p>Meesho Insider</p>
+              <p>U-SHOP Insider</p>
             </div>
             <div id="legal">
               <span>LEGAL</span>

@@ -11,6 +11,18 @@ const Electronics = () => {
   const [electronicsProdData, setElectronicsProdData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigateTo = useNavigate();
+  const [userPrice, setUserPrice] = useState("");
+  const [userRating, setUserRating] = useState("");
+
+  const handlePriceChange = (e) => {
+    setUserPrice(e.target.value);
+    // setAllProducts(alternateAllProducts);
+  };
+
+  const handleRatingChange = (e) => {
+    setUserRating(e.target.value);
+    // setAllProducts(alternateAllProducts);
+  };
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -43,6 +55,35 @@ const Electronics = () => {
     }
   }, [allProducts]);
 
+  useEffect(() => {
+    const getFilterProducts = async () => {
+      if (userPrice || userRating) {
+        try {
+          const response = await api.post(
+            "/get-single-page-filtered-products",
+            {
+              userCategory: "Electronics",
+              userPrice,
+              userRating,
+            }
+          );
+
+          if (response?.data?.success) {
+            // setAllProducts(response.data.products);
+            setElectronicsProdData(response.data.products);
+          } else {
+            setAllProducts([]);
+            toast.error(response.data.message);
+          }
+        } catch (error) {
+          toast.error(error.response.data.message);
+        }
+      }
+    };
+
+    getFilterProducts();
+  }, [userPrice, userRating]);
+
   return (
     <>
       <div id="products">
@@ -55,8 +96,8 @@ const Electronics = () => {
             <div id="header-product">
               <h2>Mobiles And Accessories</h2>
               <h4>
-                Showing 21-40
-                <span> out of 10000 products</span>
+                Showing {electronicsProdData?.length}
+                <span> out of {allProducts?.length} products</span>
               </h4>
             </div>
             <div id="filter-products">
@@ -68,7 +109,77 @@ const Electronics = () => {
                   <i class="fa-solid fa-angle-down"></i>
                 </div>
 
-                <div id="filter-main">
+                <div id="products-filter">
+                  <div className="filter-price" onChange={handlePriceChange}>
+                    <h3>Price :</h3>
+                    <div>
+                      <input
+                        type="radio"
+                        value="0"
+                        id="any price"
+                        name="price"
+                      />
+                      <label htmlFor="any price"> Any Price</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="500" id="500" name="price" />
+                      <label htmlFor="500"> &gt;= 500</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="1000" id="1000" name="price" />
+                      <label htmlFor="1000"> &gt;= 1000</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="20000"
+                        id="20000"
+                        name="price"
+                      />
+                      <label htmlFor="20000"> &gt;= 20000</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="30000"
+                        id="30000"
+                        name="price"
+                      />
+                      <label htmlFor="30000"> &gt;= 30000</label>
+                    </div>
+                  </div>
+
+                  <div className="filter-rating" onChange={handleRatingChange}>
+                    <h3>Ratings :</h3>
+                    <div>
+                      <input
+                        type="radio"
+                        value="0"
+                        id="any rating"
+                        name="ratings"
+                      />
+                      <label htmlFor="any rating"> Any Rating</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="2" id="2" name="ratings" />
+                      <label htmlFor="2"> &gt;= 2</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="3" id="3" name="ratings" />
+                      <label htmlFor="3"> &gt;= 3</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="4" id="4" name="ratings" />
+                      <label htmlFor="4"> &gt;= 4</label>
+                    </div>
+                    <div>
+                      <input type="radio" value="5" id="5" name="ratings" />
+                      <label htmlFor="5"> = 5</label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <div id="filter-main">
                   <div id="filters">
                     <h4>FILTERS</h4>
                     <p>1000+ Products</p>
@@ -165,7 +276,7 @@ const Electronics = () => {
                     <h3>Bottom_Length</h3>
                     <i class="fa-solid fa-angle-down"></i>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div id="right">

@@ -98,8 +98,8 @@ const WomenEthnic = () => {
             <div id="header-product">
               <h2>Sarees</h2>
               <h4>
-                Showing 21-40
-                <span> out of 10000 products</span>
+                Showing {womenEthnicProdData?.length}
+                <span> out of {allProducts?.length} products</span>
               </h4>
             </div>
             <div id="filter-products">
