@@ -60,40 +60,49 @@ export const getFilteredProducts = async (req, res) => {
       userGender = userGender || "Any",
       userPrice = userPrice || 0,
       userRating = userRating || 0,
-      userCategory = userCategory || "AnyCategory",
     } = req.body;
-
-    // if (token)
-    //   return res
-    //     .status(404)
-    //     .json({ success: false, message: "Token is required!" });
-
-    // const decodedData = jwt.verify(token, process.env.JWT_SECRET);
-
-    // if (!decodedData)
-    //   return res
-    //     .status(404)
-    //     .json({ success: false, message: "Not a valid token!" });
-
-    // const userId = decodedData?.userId;
-
-    // if (userPrice) {
-    //   query.price = { price: { $gte: userPrice } };
-    // }
 
     const query = {
       price: { $gte: Number(userPrice) },
       avgRating: { $gte: Number(userRating) },
-      // gender: { $eq: userGender },
     };
 
     if (userGender != null && userGender != "Any") {
       query.gender = userGender;
     }
 
-    // if (userCategory) {
-    //   query.category = userCategory;
-    // }
+    console.log("Query:", query);
+
+    const products = await ProductModel.find(query);
+
+    console.log(products, "prods");
+
+    if (products) {
+      return res.status(200).json({ success: true, products: products });
+    }
+
+    return res.status(404).json({ success: false, message: "No Products!" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getSinglePageFilteredProds = async (req, res) => {
+  try {
+    const {
+      userPrice = userPrice || 0,
+      userRating = userRating || 0,
+      userCategory,
+    } = req.body;
+
+    const query = {
+      price: { $gte: Number(userPrice) },
+      avgRating: { $gte: Number(userRating) },
+    };
+
+    if (userCategory) {
+      query.category = userCategory;
+    }
 
     console.log("Query:", query);
 
@@ -165,17 +174,17 @@ export const updateYourProduct = async (req, res) => {
     const { image, name, price, category, avgRating, gender } =
       req.body.editProductData;
 
-    console.log(
-      productId,
-      token,
-      image,
-      name,
-      price,
-      category,
-      avgRating,
-      gender,
-      "all edit"
-    );
+    // console.log(
+    //   productId,
+    //   token,
+    //   image,
+    //   name,
+    //   price,
+    //   category,
+    //   avgRating,
+    //   gender,
+    //   "all edit"
+    // );
 
     if (!token)
       return res

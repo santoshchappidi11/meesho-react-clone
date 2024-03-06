@@ -18,6 +18,7 @@ import {
   deleteYourProduct,
   getEditProductData,
   getFilteredProducts,
+  getSinglePageFilteredProds,
   getSingleProduct,
   getYourProducts,
   updateYourProduct,
@@ -66,6 +67,7 @@ app.post("/login", Login);
 app.post("/get-current-user", getCurrentUser);
 app.get("/all-products", allProducts);
 app.post("/get-filtered-products", getFilteredProducts);
+app.post("/get-single-page-filtered-products", getSinglePageFilteredProds);
 app.post("/get-singleproduct-data", getSingleProduct);
 app.post("/update-user-details", updateUserDetails);
 

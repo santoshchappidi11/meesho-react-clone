@@ -21,7 +21,7 @@ const Home = () => {
   const [userCategory, setUserCategory] = useState("");
   const navigateTo = useNavigate();
 
-  console.log(allProducts, "products");
+  // console.log(allProducts, "products");
 
   const handleGenderChnage = (e) => {
     setUserGender(e.target.value);
@@ -37,9 +37,9 @@ const Home = () => {
     // setAllProducts(alternateAllProducts);
   };
 
-  const handleCategoryChange = (e) => {
-    setUserCategory(e.target.value);
-  };
+  // const handleCategoryChange = (e) => {
+  //   setUserCategory(e.target.value);
+  // };
 
   // useEffect(() => {
   //   if (allProducts && userGender) {
