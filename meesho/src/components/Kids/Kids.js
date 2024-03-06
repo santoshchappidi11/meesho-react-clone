@@ -25,7 +25,9 @@ const Kids = () => {
           setIsLoading(false);
         }
       } catch (error) {
-        toast.error(error.response.data.message);
+        console.log(error.response.data.message);
+        setIsLoading(false);
+        // toast.error(error.response.data.message);
       }
     };
 

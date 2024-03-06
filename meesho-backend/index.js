@@ -17,6 +17,7 @@ import {
   allProducts,
   deleteYourProduct,
   getEditProductData,
+  getFilteredProducts,
   getSingleProduct,
   getYourProducts,
   updateYourProduct,
@@ -64,6 +65,7 @@ app.post("/register", Register);
 app.post("/login", Login);
 app.post("/get-current-user", getCurrentUser);
 app.get("/all-products", allProducts);
+app.post("/get-filtered-products", getFilteredProducts);
 app.post("/get-singleproduct-data", getSingleProduct);
 app.post("/update-user-details", updateUserDetails);
 
@@ -71,7 +73,7 @@ app.post("/update-user-details", updateUserDetails);
 app.post("/add-product", checkSeller, addProduct);
 app.get("/get-your-products", checkSeller, getYourProducts);
 app.post("/get-editproduct-data", checkSeller, getEditProductData);
-app.patch("/update-your-product", checkSeller, updateYourProduct);
+app.post("/update-your-product", checkSeller, updateYourProduct);
 app.post("/delete-your-product", checkSeller, deleteYourProduct);
 
 // buyer

@@ -4,7 +4,8 @@ import UserModel from "../Models/User.model.js";
 
 export const addProduct = async (req, res) => {
   try {
-    const { image, name, price, category, rating } = req.body.addProductData;
+    const { image, name, price, category, rating, gender } =
+      req.body.addProductData;
     const { token } = req.body;
 
     if (!image || !name || !price || !category || !token)
@@ -28,6 +29,7 @@ export const addProduct = async (req, res) => {
       category,
       userId: userId,
       avgRating: rating,
+      gender,
     });
     await product.save();
 
@@ -49,6 +51,63 @@ export const allProducts = async (req, res) => {
     return res.status(404).json({ success: false, message: "No Products!" });
   } catch (error) {
     return res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+export const getFilteredProducts = async (req, res) => {
+  try {
+    const {
+      userGender = userGender || "Any",
+      userPrice = userPrice || 0,
+      userRating = userRating || 0,
+      userCategory = userCategory || "AnyCategory",
+    } = req.body;
+
+    // if (token)
+    //   return res
+    //     .status(404)
+    //     .json({ success: false, message: "Token is required!" });
+
+    // const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+
+    // if (!decodedData)
+    //   return res
+    //     .status(404)
+    //     .json({ success: false, message: "Not a valid token!" });
+
+    // const userId = decodedData?.userId;
+
+    // if (userPrice) {
+    //   query.price = { price: { $gte: userPrice } };
+    // }
+
+    const query = {
+      price: { $gte: Number(userPrice) },
+      avgRating: { $gte: Number(userRating) },
+      // gender: { $eq: userGender },
+    };
+
+    if (userGender != null && userGender != "Any") {
+      query.gender = userGender;
+    }
+
+    // if (userCategory) {
+    //   query.category = userCategory;
+    // }
+
+    console.log("Query:", query);
+
+    const products = await ProductModel.find(query);
+
+    console.log(products, "prods");
+
+    if (products) {
+      return res.status(200).json({ success: true, products: products });
+    }
+
+    return res.status(404).json({ success: false, message: "No Products!" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -101,8 +160,22 @@ export const getYourProducts = async (req, res) => {
 
 export const updateYourProduct = async (req, res) => {
   try {
-    const { productId, token, image, name, price, category, avgRating } =
-      req.body;
+    const { token, productId } = req.body;
+
+    const { image, name, price, category, avgRating, gender } =
+      req.body.editProductData;
+
+    console.log(
+      productId,
+      token,
+      image,
+      name,
+      price,
+      category,
+      avgRating,
+      gender,
+      "all edit"
+    );
 
     if (!token)
       return res
@@ -120,7 +193,7 @@ export const updateYourProduct = async (req, res) => {
 
     const updatedProduct = await ProductModel.findOneAndUpdate(
       { _id: productId, userId: userId },
-      { image, name, price, category, avgRating },
+      { image, name, price, category, avgRating, gender },
       { new: true }
     );
 

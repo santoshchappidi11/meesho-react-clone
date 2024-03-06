@@ -25,7 +25,9 @@ const Mens = () => {
           setIsLoading(false);
         }
       } catch (error) {
-        toast.error(error.response.data.message);
+        setIsLoading(false);
+        console.log(error.response.data.message);
+        // toast.error(error.response.data.message);
       }
     };
 

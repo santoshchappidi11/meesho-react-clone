@@ -17,6 +17,7 @@ const EditProduct = () => {
     price: "",
     category: "Men",
     avgRating: "3.5",
+    gender: "Any",
   });
 
   const handleChangeValues = (e) => {
@@ -50,31 +51,24 @@ const EditProduct = () => {
   const handleEditProductSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      editProductData.name &&
-      editProductData.image &&
-      editProductData.price &&
-      editProductData.category
-    ) {
-      try {
-        const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
-        const response = await api.patch("/update-your-product", {
-          editProductData,
-          token,
-          productId: editProdId,
-        });
+    console.log(editProductData, "edit prod");
 
-        if (response.data.success) {
-          toast.success(response.data.message);
-          navigateTo(`/${response?.data?.product?.category}`);
-        } else {
-          toast.error(response.data.message);
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
+    try {
+      const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+      const response = await api.post("/update-your-product", {
+        editProductData,
+        token,
+        productId: editProdId,
+      });
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        navigateTo(`/${response?.data?.product?.category}`);
+      } else {
+        toast.error(response.data.message);
       }
-    } else {
-      toast.error("Please fill all the fields!");
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   };
 
@@ -109,6 +103,16 @@ const EditProduct = () => {
                 value={editProductData.price}
                 onChange={handleChangeValues}
               />
+
+              <select
+                name="gender"
+                value={editProductData.gender}
+                onChange={handleChangeValues}
+              >
+                <option>Any</option>
+                <option>Men</option>
+                <option>Women</option>
+              </select>
 
               <select
                 name="avgRating"

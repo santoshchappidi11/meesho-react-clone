@@ -36,18 +36,23 @@ const productSchema = new Schema({
     default: false,
   },
 
-  ratings: {
-    type: [Number],
-    enum: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
-  },
+  // ratings: {
+  //   type: [Number],
+  //   enum: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
+  // },
 
   comments: {
     type: [Object],
   },
 
   avgRating: {
+    type: Number,
+    default: 3.5,
+  },
+
+  gender: {
     type: String,
-    default: "3.5",
+    default: "Any",
   },
 });
 

@@ -18,81 +18,83 @@ const Home = () => {
   const [userGender, setUserGender] = useState("");
   const [userPrice, setUserPrice] = useState("");
   const [userRating, setUserRating] = useState("");
+  const [userCategory, setUserCategory] = useState("");
   const navigateTo = useNavigate();
 
   console.log(allProducts, "products");
 
   const handleGenderChnage = (e) => {
-    // if (e.target.value === "All") {
-    //   setAllProducts(alternateAllProducts);
-    // }
     setUserGender(e.target.value);
   };
 
   const handlePriceChange = (e) => {
     setUserPrice(e.target.value);
-    setAllProducts(alternateAllProducts);
+    // setAllProducts(alternateAllProducts);
   };
 
   const handleRatingChange = (e) => {
     setUserRating(e.target.value);
-    setAllProducts(alternateAllProducts);
+    // setAllProducts(alternateAllProducts);
   };
 
-  useEffect(() => {
-    if (allProducts && userGender) {
-      const newProducts = allProducts?.filter(
-        (prod) => prod?.category == userGender
-      );
-      // console.log(newProducts, "filtered prod");
-      if (newProducts?.length) {
-        setAllProducts(newProducts);
-      } else {
-        setAllProducts(alternateAllProducts);
-      }
-    }
-  }, [userGender, alternateAllProducts]);
+  const handleCategoryChange = (e) => {
+    setUserCategory(e.target.value);
+  };
 
-  useEffect(() => {
-    if (allProducts && userPrice) {
-      if (userGender) {
-        const genderProducts = allProducts?.filter(
-          (prod) => prod?.category == userGender
-        );
+  // useEffect(() => {
+  //   if (allProducts && userGender) {
+  //     const newProducts = allProducts?.filter(
+  //       (prod) => prod?.category == userGender
+  //     );
+  //     // console.log(newProducts, "filtered prod");
+  //     if (newProducts?.length) {
+  //       setAllProducts(newProducts);
+  //     } else {
+  //       setAllProducts(alternateAllProducts);
+  //     }
+  //   }
+  // }, [userGender, alternateAllProducts]);
 
-        if (genderProducts?.length) {
-          const priceGenderProducts = genderProducts?.filter(
-            (prod) => prod?.price >= userPrice
-          );
+  // useEffect(() => {
+  //   if (allProducts && userPrice) {
+  //     if (userGender) {
+  //       const genderProducts = allProducts?.filter(
+  //         (prod) => prod?.category == userGender
+  //       );
 
-          if (priceGenderProducts?.length) {
-            setAllProducts(priceGenderProducts);
-          } else {
-            setAllProducts([]);
-          }
-        } else {
-          const priceProducts = allProducts?.filter(
-            (prod) => prod?.price >= userPrice
-          );
+  //       if (genderProducts?.length) {
+  //         const priceGenderProducts = genderProducts?.filter(
+  //           (prod) => prod?.price >= userPrice
+  //         );
 
-          if (priceProducts?.length) {
-            setAllProducts(priceProducts);
-          } else {
-            setAllProducts(alternateAllProducts);
-          }
-        }
-      } else {
-        const newProducts = allProducts?.filter(
-          (prod) => prod?.price >= userPrice || prod?.category == userGender
-        );
-        if (newProducts?.length) {
-          setAllProducts(newProducts);
-        } else {
-          setAllProducts(alternateAllProducts);
-        }
-      }
-    }
-  }, [userPrice, alternateAllProducts, userGender]);
+  //         if (priceGenderProducts?.length) {
+  //           setAllProducts(priceGenderProducts);
+  //         } else {
+  //           setAllProducts([]);
+  //         }
+  //       } else {
+  //         const priceProducts = allProducts?.filter(
+  //           (prod) => prod?.price >= userPrice
+  //         );
+
+  //         if (priceProducts?.length) {
+  //           setAllProducts(priceProducts);
+  //         } else {
+  //           setAllProducts(alternateAllProducts);
+  //         }
+  //       }
+  //     } else {
+  //       const newProducts = allProducts?.filter(
+  //         (prod) => prod?.price >= userPrice || prod?.category == userGender
+  //       );
+  //       if (newProducts?.length) {
+  //         setAllProducts(newProducts);
+  //       } else {
+  //         setAllProducts(alternateAllProducts);
+  //       }
+  //     }
+  //   }
+  // }, [userPrice, alternateAllProducts, userGender]);
 
   // useEffect(() => {
   //   if (allProducts && userRating) {
@@ -143,13 +145,42 @@ const Home = () => {
           setIsLoading(false);
         }
       } catch (error) {
-        toast.error(error.response.data.message);
+        console.log(error.response.data.message);
+        // toast.error(error.response.data.message);
         setIsLoading(false);
       }
     };
 
     getAllProducts();
   }, []);
+
+  useEffect(() => {
+    const getFilterProducts = async () => {
+      if (userGender || userPrice || userRating || userCategory) {
+        try {
+          // const token = JSON.parse(localStorage.getItem("MeeshoUserToken"));
+          const response = await api.post("/get-filtered-products", {
+            // token,
+            userGender,
+            userPrice,
+            userRating,
+            userCategory,
+          });
+
+          if (response?.data?.success) {
+            setAllProducts(response.data.products);
+          } else {
+            setAllProducts([]);
+            toast.error(response.data.message);
+          }
+        } catch (error) {
+          toast.error(error.response.data.message);
+        }
+      }
+    };
+
+    getFilterProducts();
+  }, [userGender, userPrice, userRating, userCategory]);
 
   return (
     <>
@@ -198,22 +229,22 @@ const Home = () => {
                     <div>
                       <input
                         type="radio"
-                        value="All"
-                        id="all"
+                        value="Any"
+                        id="any"
                         name="gender"
-                        // checked={userGender === "All"}
+                        // checked={userGender === "Any"}
                       />
-                      <label htmlFor="all">All</label>
+                      <label htmlFor="any">Any</label>
                     </div>
                     <div>
                       <input
                         type="radio"
-                        value="Mens"
-                        id="mens"
+                        value="Men"
+                        id="men"
                         name="gender"
-                        // checked={userGender === "Mens"}
+                        // checked={userGender === "Men"}
                       />
-                      <label htmlFor="mens">Mens</label>
+                      <label htmlFor="men">Men</label>
                     </div>
                     <div>
                       <input
@@ -228,6 +259,15 @@ const Home = () => {
                   </div>
                   <div className="filter-price" onChange={handlePriceChange}>
                     <h3>Price :</h3>
+                    <div>
+                      <input
+                        type="radio"
+                        value="0"
+                        id="any price"
+                        name="price"
+                      />
+                      <label htmlFor="any price"> Any Price</label>
+                    </div>
                     <div>
                       <input type="radio" value="500" id="500" name="price" />
                       <label htmlFor="500"> &gt;= 500</label>
@@ -259,6 +299,15 @@ const Home = () => {
                   <div className="filter-rating" onChange={handleRatingChange}>
                     <h3>Ratings :</h3>
                     <div>
+                      <input
+                        type="radio"
+                        value="0"
+                        id="any rating"
+                        name="ratings"
+                      />
+                      <label htmlFor="any rating"> Any Rating</label>
+                    </div>
+                    <div>
                       <input type="radio" value="2" id="2" name="ratings" />
                       <label htmlFor="2"> &gt;= 2</label>
                     </div>
@@ -272,9 +321,109 @@ const Home = () => {
                     </div>
                     <div>
                       <input type="radio" value="5" id="5" name="ratings" />
-                      <label htmlFor="5"> &gt;= 5</label>
+                      <label htmlFor="5"> = 5</label>
                     </div>
                   </div>
+
+                  {/* <div
+                    className="filter-category"
+                    onChange={handleCategoryChange}
+                  >
+                    <h3>Category :</h3>
+                    <div>
+                      <input
+                        type="radio"
+                        value="AnyCategory"
+                        id="anycategory"
+                        name="category"
+                      />
+                      <label htmlFor="anycategory"> Any Category</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Women-Ethnic"
+                        id="women-ethnic"
+                        name="category"
+                      />
+                      <label htmlFor="women-ethnic"> Women-Ethnic</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Women-Western"
+                        id="women-western"
+                        name="category"
+                      />
+                      <label htmlFor="women-western"> Women-Western</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Mens"
+                        id="mens"
+                        name="category"
+                      />
+                      <label htmlFor="mens"> Mens</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Kids"
+                        id="kids"
+                        name="category"
+                      />
+                      <label htmlFor="kids"> Kids</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Home&Kitchen"
+                        id="home&kitchen"
+                        name="category"
+                      />
+                      <label htmlFor="home&kitchen"> Home&Kitchen</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Beauty&Health"
+                        id="beauty&health"
+                        name="category"
+                      />
+                      <label htmlFor="beauty&health"> Beauty&Health</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Jewellery&Accessories"
+                        id="jewellery&accessories"
+                        name="category"
+                      />
+                      <label htmlFor="jewellery&accessories">
+                        {" "}
+                        Jewellery&Accessories
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Bags&Footwear"
+                        id="bags&footwear"
+                        name="category"
+                      />
+                      <label htmlFor="bags&footwear"> Bags&Footwear</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        value="Electronics"
+                        id="electronics"
+                        name="category"
+                      />
+                      <label htmlFor="electronics"> Electronics</label>
+                    </div>
+                  </div> */}
                 </div>
 
                 {/* <div id="filter-main">
