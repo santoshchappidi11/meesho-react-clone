@@ -203,7 +203,11 @@ const SingleProduct = () => {
                 <h1>₹{singleProduct?.price?.toLocaleString("en-IN")}</h1>
                 <div id="rating-review">
                   <div id="rating">
-                    <h4>3.7</h4>
+                    <h4>
+                      {singleProduct?.avgRating
+                        ? singleProduct?.avgRating
+                        : "3.8"}
+                    </h4>
                     <i
                       class="fa-solid fa-star"
                       style={{ fontSize: "10px" }}
@@ -265,7 +269,12 @@ const SingleProduct = () => {
                 <div id="details">
                   <div id="rating">
                     <div>
-                      <h4>3.8</h4>
+                      <h4>
+                        {" "}
+                        {singleProduct?.avgRating
+                          ? singleProduct?.avgRating
+                          : "3.8"}
+                      </h4>
                       <i
                         class="fa-solid fa-star"
                         style={{ fontSize: "10px" }}
@@ -288,7 +297,11 @@ const SingleProduct = () => {
                 <div id="prod-reviews">
                   <div id="main-rating">
                     <div>
-                      <h4>3.7</h4>
+                      <h4>
+                        {singleProduct?.avgRating
+                          ? singleProduct?.avgRating
+                          : "3.8"}
+                      </h4>
                       <i
                         class="fa-solid fa-star fa-lg"
                         style={{ color: "#0a9353" }}

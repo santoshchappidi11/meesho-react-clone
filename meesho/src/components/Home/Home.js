@@ -234,7 +234,7 @@ const Home = () => {
                         name="gender"
                         // checked={userGender === "Any"}
                       />
-                      <label htmlFor="any">Any</label>
+                      <label htmlFor="any"> Any</label>
                     </div>
                     <div>
                       <input
@@ -244,7 +244,7 @@ const Home = () => {
                         name="gender"
                         // checked={userGender === "Men"}
                       />
-                      <label htmlFor="men">Men</label>
+                      <label htmlFor="men"> Men</label>
                     </div>
                     <div>
                       <input
@@ -254,7 +254,7 @@ const Home = () => {
                         name="gender"
                         // checked={userGender === "Women"}
                       />
-                      <label htmlFor="women">Women</label>
+                      <label htmlFor="women"> Women</label>
                     </div>
                   </div>
                   <div className="filter-price" onChange={handlePriceChange}>

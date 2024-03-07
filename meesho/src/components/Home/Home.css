@@ -69,6 +69,7 @@
   padding: 0 25px;
   border-radius: 5px;
   border: 1px solid rgb(212, 212, 212);
+  border: 1px solid rgb(230, 230, 230) !important;
 }
 
 #left > #sort > span {
@@ -114,7 +115,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 2px;
-  border-bottom: 1px solid rgb(212, 212, 212);
+  border-bottom: 1px solid rgb(230, 230, 230);
 }
 
 #left > #filter-main > .filter:last-child {
@@ -130,6 +131,46 @@
 #left > #filter-main > .filter > i {
   font-size: 15px;
   color: rgb(43, 43, 43);
+}
+
+#filter-products{
+  position: relative;
+  /* border: 1px solid blue; */
+ 
+}
+
+
+#filter-products #left{
+  position:sticky;
+  top: 0;
+  /* border: 1px solid green; */
+}
+
+#products-filter{
+  /* border: 1px solid red; */
+}
+
+.filter-gender{
+  border-top: none !important;
+}
+
+#products-filter .filter-gender, .filter-price, .filter-rating{
+padding: 10px 30px;
+border: 1px solid rgb(230, 230, 230);
+border-bottom: none;
+}
+
+#products-filter h3{
+  margin: 4px 0;
+  font-weight: 500;
+  color: #00a390;
+  /* border: 1px solid green; */
+}
+
+
+
+.filter-rating{
+  border-bottom: 1px solid lightgrey;
 }
 
 #products > #filter-products > #right {
