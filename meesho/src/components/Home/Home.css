@@ -167,7 +167,9 @@ border-bottom: none;
   /* border: 1px solid green; */
 }
 
-
+#products-filter div input{
+  accent-color: #00a390;
+}
 
 .filter-rating{
   border-bottom: 1px solid lightgrey;
@@ -310,4 +312,9 @@ border-bottom: none;
 #home-loading h3{
   font-size: 25px;
   color:  #09a492;
+}
+
+#no-prod-msg{
+  /* text-align: center; */
+  /* border: 1px solid red; */
 }

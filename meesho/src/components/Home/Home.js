@@ -555,7 +555,9 @@ const Home = () => {
                       </div>
                     ))
                   ) : (
-                    <h3>No Products!</h3>
+                    <div id="no-prod-msg">
+                      <h2>No Products!</h2>
+                    </div>
                   )}
                 </div>
               </div>
